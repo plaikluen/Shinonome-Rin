@@ -425,7 +425,7 @@
 
 		.hero {
 			display: grid;
-			grid-template-columns: 1.15fr 0.85fr;
+			grid-template-columns: minmax(0, 1fr) minmax(280px, 320px);
 			gap: 20px;
 			margin-bottom: 20px;
 		}
@@ -564,26 +564,68 @@
 		}
 
 		.hero-main {
-			padding: 30px;
+			display: flex;
+			align-items: flex-start;
+			justify-content: center;
+			padding: 24px 24px 24px 28px;
 			position: relative;
 			overflow: hidden;
 		}
 
 		.hero-layout {
 			display: grid;
-			grid-template-columns: 1fr minmax(160px, 280px);
+			grid-template-columns: 1fr minmax(220px, 330px);
 			gap: 18px;
-			align-items: center;
+			align-items: start;
+			width: 100%;
+			margin: 0 auto;
 		}
 
 		.hero-copy p {
 			max-width: 60ch;
 		}
 
+		.hero-meta {
+			display: grid;
+			gap: 8px;
+			margin-top: 10px;
+		}
+
+		.hero-meta-item {
+			display: inline-flex;
+			align-items: baseline;
+			gap: 8px;
+			width: fit-content;
+			padding: 8px 14px;
+			border-radius: 999px;
+			background: rgba(255, 255, 255, 0.9);
+			border: 1px solid rgba(201, 127, 148, 0.28);
+			color: #7a334b;
+			font-size: 0.9rem;
+			line-height: 1.3;
+		}
+
+		.hero-meta-item small {
+			font-size: 0.76rem;
+			color: var(--text-soft);
+		}
+
+		.hero-photo-wrap {
+			display: grid;
+			gap: 10px;
+			justify-items: center;
+			align-content: start;
+		}
+
 		.hero-photo {
 			width: 100%;
 			display: block;
 			margin: 0;
+			aspect-ratio: 3 / 4;
+			max-height: 440px;
+			object-fit: cover;
+			object-position: center top;
+			justify-self: end;
 			border-radius: 14px;
 			border: 1px solid rgba(201, 127, 148, 0.3);
 			box-shadow: 0 10px 24px rgba(146, 91, 111, 0.2);
@@ -618,10 +660,60 @@
 		}
 
 		.id-card {
+			width: min(100%, 320px);
+			justify-self: end;
 			padding: 22px;
 			display: grid;
 			gap: 14px;
 			align-content: start;
+		}
+
+		.id-flip-wrap {
+			perspective: 1400px;
+		}
+
+		.id-flip-card {
+			position: relative;
+			width: min(100%, 320px);
+			margin: 2px auto 6px;
+			aspect-ratio: 1.58 / 1;
+			transform-style: preserve-3d;
+			transition: transform 0.7s cubic-bezier(0.22, 0.8, 0.22, 1);
+			border-radius: 18px;
+		}
+
+		.id-flip-wrap:hover .id-flip-card,
+		.id-flip-wrap:focus-within .id-flip-card {
+			transform: rotateY(180deg);
+		}
+
+		.id-face {
+			position: absolute;
+			inset: 0;
+			border-radius: 18px;
+			overflow: hidden;
+			backface-visibility: hidden;
+			-webkit-backface-visibility: hidden;
+			background: rgba(255, 255, 255, 0.92);
+			border: 1px solid rgba(201, 127, 148, 0.28);
+			box-shadow: 0 14px 28px rgba(146, 91, 111, 0.16);
+		}
+
+		.id-face img {
+			width: 100%;
+			height: 100%;
+			display: block;
+			object-fit: cover;
+		}
+
+		.id-face.back {
+			transform: rotateY(180deg);
+		}
+
+		.id-flip-hint {
+			text-align: center;
+			font-size: 0.8rem;
+			color: var(--text-soft);
 		}
 
 		.id-head {
@@ -968,7 +1060,16 @@
 			}
 
 			.hero-photo {
+				width: 100%;
+				margin: 0 auto;
+				aspect-ratio: auto;
+				max-height: none;
+				object-fit: contain;
 				max-width: 280px;
+			}
+
+			.hero-meta-item {
+				font-size: 0.86rem;
 			}
 
 			.info-grid {
@@ -1117,8 +1218,14 @@
 						<p>
 						ยัตต้า!
 						</p>
+						<div class="hero-meta" aria-label="ข้อมูลเพิ่มเติม">
+							<p class="hero-meta-item"><small>รูมเมท</small>รอประกาศ/เลือกเอง</p>
+							<p class="hero-meta-item"><small>ชมรม</small>-</p>
+						</div>
 					</div>
-					<img class="hero-photo" src="./image/RinPhotoIDMSG.png" alt="RinPhotoIDMSG" loading="lazy" />
+					<div class="hero-photo-wrap">
+						<img class="hero-photo" src="./image/RinPhotoIDMSG.png" alt="RinPhotoIDMSG" loading="lazy" />
+					</div>
 				</div>
 			</article>
 
@@ -1127,13 +1234,22 @@
 					<h2>บัตรนักเรียน</h2>
 					<span class="tag">ID 00000</span>
 				</div>
+				<div class="id-flip-wrap">
+					<div class="id-flip-card" tabindex="0" aria-label="บัตรนักเรียน พลิกดูด้านหลังได้เมื่อวางเมาส์หรือโฟกัส">
+						<div class="id-face front">
+							<img src="./image/photoID_card.png" alt="บัตรนักเรียนด้านหน้าของชิโนโนเมะ ริน" loading="lazy" />
+						</div>
+						<div class="id-face back">
+							<img src="./image/idcard_back.jpg" alt="บัตรนักเรียนด้านหลังของชิโนโนเมะ ริน" loading="lazy" />
+						</div>
+					</div>
+				</div>
+				<p class="id-flip-hint">วางเมาส์บนบัตรเพื่อพลิกดูด้านหลัง</p>
 				<div class="id-grid">
 					<div class="id-item"><small>ชั้นปี</small>ไคกะ</div>
 					<div class="id-item"><small>ห้อง</small>รอประกาศ</div>
 					<div class="id-item"><small>หอพัก</small>ฤดูใบไม้ผลิ</div>
-					<div class="id-item"><small>รูมเมท</small>รอประกาศ/เลือกเอง</div>
 					<div class="id-item"><small>เพศ</small>หญิง</div>
-					<div class="id-item"><small>ชมรม</small>-</div>
 				</div>
 			</aside>
 		</section>

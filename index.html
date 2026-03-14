@@ -398,6 +398,7 @@
 			inset: 0;
 			pointer-events: none;
 			z-index: 0;
+			will-change: transform;
 		}
 
 		.petal {
@@ -1010,6 +1011,7 @@
 			align-items: center;
 			justify-content: center;
 			color: var(--primary-strong);
+			overflow: visible;
 			transition: background 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
 			animation: floaty 4s ease-in-out infinite;
 			animation-delay: 0.6s;
@@ -1030,6 +1032,106 @@
 			width: 20px;
 			height: 20px;
 			flex-shrink: 0;
+		}
+
+		.music-visualizer {
+			position: absolute;
+			left: 50%;
+			top: -13px;
+			transform: translateX(-50%);
+			display: inline-flex;
+			align-items: flex-end;
+			gap: 2px;
+			height: 10px;
+			padding: 2px 5px;
+			border-radius: 999px;
+			background: rgba(255, 255, 255, 0.72);
+			border: 1px solid rgba(201, 127, 148, 0.28);
+			opacity: 0;
+			transition: opacity 0.25s ease;
+		}
+
+		.music-visualizer span {
+			width: 2px;
+			height: 100%;
+			border-radius: 999px;
+			background: #c45377;
+			transform-origin: bottom;
+			animation: equalizerPulse 0.9s ease-in-out infinite;
+		}
+
+		.music-visualizer span:nth-child(2) { animation-delay: 0.15s; }
+		.music-visualizer span:nth-child(3) { animation-delay: 0.3s; }
+		.music-visualizer span:nth-child(4) { animation-delay: 0.45s; }
+
+		.music-toggle-btn.is-playing .music-visualizer {
+			opacity: 1;
+		}
+
+		@keyframes equalizerPulse {
+			0%,
+			100% {
+				transform: scaleY(0.35);
+			}
+			50% {
+				transform: scaleY(1);
+			}
+		}
+
+		/* --- Dorm Logo Button --- */
+		.dorm-logo-btn {
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			background: none;
+			border: none;
+			padding: 1px;
+			cursor: pointer;
+			vertical-align: middle;
+			margin-left: 3px;
+			border-radius: 50%;
+			transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.3s;
+			filter: drop-shadow(0 0 3px rgba(253, 150, 184, 0));
+		}
+
+		.dorm-logo-btn img {
+			width: 26px;
+			height: 26px;
+			object-fit: contain;
+			display: block;
+		}
+
+		.dorm-logo-btn:hover,
+		.dorm-logo-btn:focus-visible {
+			transform: rotate(18deg) scale(1.28);
+			filter: drop-shadow(0 0 6px rgba(253, 150, 184, 0.85));
+			outline: none;
+		}
+
+		.dorm-logo-btn:active {
+			transform: rotate(30deg) scale(1.1);
+		}
+
+		/* --- Petal Burst Overlay --- */
+		.petal-burst-overlay {
+			position: fixed;
+			inset: 0;
+			pointer-events: none;
+			z-index: 99999;
+			overflow: hidden;
+		}
+
+		.burst-petal {
+			position: absolute;
+			opacity: 0;
+			animation: burstPetalLife var(--dur, 2s) ease-in-out var(--delay, 0s) forwards;
+		}
+
+		@keyframes burstPetalLife {
+			0%   { opacity: 0;   transform: translate(0, -18px)                                     rotate(var(--rot0, 0deg))    scale(0.3); }
+			10%  { opacity: 1;   transform: translate(0, 4px)                                         rotate(var(--rot0, 0deg))    scale(1); }
+			75%  { opacity: 0.9; transform: translate(var(--dx, 0px), var(--dy, 65px))               rotate(var(--rot1, 200deg))  scale(0.9); }
+			100% { opacity: 0;   transform: translate(var(--dx, 0px), calc(var(--dy, 65px) + 32px)) rotate(var(--rot2, 280deg))  scale(0.48); }
 		}
 
 		@media (prefers-reduced-motion: reduce) {
@@ -1165,6 +1267,12 @@
 	<audio id="bgm-sakura" src="./music/sakura.mp3" preload="auto" loop></audio>
 
 	<button class="music-toggle-btn" id="music-toggle-btn" aria-label="ปิดเสียงเพลง">
+		<span class="music-visualizer" aria-hidden="true">
+			<span></span>
+			<span></span>
+			<span></span>
+			<span></span>
+		</span>
 		<svg id="icon-sound-on" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
 			<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
 			<path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
@@ -1248,7 +1356,7 @@
 				<div class="id-grid">
 					<div class="id-item"><small>ชั้นปี</small>ไคกะ</div>
 					<div class="id-item"><small>ห้อง</small>รอประกาศ</div>
-					<div class="id-item"><small>หอพัก</small>ฤดูใบไม้ผลิ</div>
+					<div class="id-item"><small>หอพัก</small><span style="display:inline-flex;align-items:center;gap:3px;">ฤดูใบไม้ผลิ<button class="dorm-logo-btn" id="dorm-logo-btn" title="✿ คลิกเพื่อปล่อยกลีบดอก" aria-label="ตราหอพักฤดูใบไม้ผลิ — คลิกเพื่อปล่อยกลีบดอก"><img src="./image/โลโก้หอฤดูใบไม้ผลิ.png" alt="ตราหอพักฤดูใบไม้ผลิ" /></button></span></div>
 					<div class="id-item"><small>เพศ</small>หญิง</div>
 				</div>
 			</aside>
@@ -1414,18 +1522,29 @@
 		const lightboxClose = document.getElementById('lightbox-close');
 		const brandLogo = document.getElementById('brand-logo');
 		const commuBrand = document.getElementById('commu-brand');
+		const petalsLayer = document.querySelector('.petals');
 		const musicBtn = document.getElementById('music-toggle-btn');
 		const iconSoundOn = document.getElementById('icon-sound-on');
 		const iconSoundOff = document.getElementById('icon-sound-off');
 		let isMuted = false;
 
+		function updateMusicButtonUi() {
+			const muted = bgmSakura.muted;
+			const isPlaying = !bgmSakura.paused && !muted;
+			iconSoundOn.style.display = muted ? 'none' : '';
+			iconSoundOff.style.display = muted ? '' : 'none';
+			musicBtn.classList.toggle('is-muted', muted);
+			musicBtn.classList.toggle('is-playing', isPlaying);
+			musicBtn.setAttribute('aria-label', muted ? 'เปิดเสียงเพลง' : 'ปิดเสียงเพลง');
+		}
+
 		musicBtn.addEventListener('click', () => {
 			isMuted = !isMuted;
 			bgmSakura.muted = isMuted;
-			iconSoundOn.style.display = isMuted ? 'none' : '';
-			iconSoundOff.style.display = isMuted ? '' : 'none';
-			musicBtn.classList.toggle('is-muted', isMuted);
-			musicBtn.setAttribute('aria-label', isMuted ? 'เปิดเสียงเพลง' : 'ปิดเสียงเพลง');
+			if (!isMuted && introLeaving) {
+				tryPlayBgm();
+			}
+			updateMusicButtonUi();
 		});
 
 		let introLeaving = false;
@@ -1436,14 +1555,71 @@
 			bgmSakura.volume = 0.4;
 			const playAttempt = bgmSakura.play();
 			if (playAttempt && typeof playAttempt.catch === 'function') {
-				playAttempt.catch(() => {
-					// Autoplay may be blocked until first user interaction.
-				});
+				playAttempt
+					.then(() => {
+						updateMusicButtonUi();
+					})
+					.catch(() => {
+						// Autoplay may be blocked until first user interaction.
+						updateMusicButtonUi();
+					});
+				return;
 			}
+			updateMusicButtonUi();
 		}
+
+		['play', 'pause', 'volumechange', 'ended'].forEach((eventName) => {
+			bgmSakura.addEventListener(eventName, updateMusicButtonUi);
+		});
+		updateMusicButtonUi();
 
 		function randomIn(min, max) {
 			return Math.random() * (max - min) + min;
+		}
+
+		if (petalsLayer && !reduceMotion) {
+			let targetX = 0;
+			let targetY = 0;
+			let currentX = 0;
+			let currentY = 0;
+			let parallaxFrame = null;
+			const maxOffsetX = 14;
+			const maxOffsetY = 10;
+
+			const animatePetalParallax = () => {
+				currentX += (targetX - currentX) * 0.1;
+				currentY += (targetY - currentY) * 0.1;
+				petalsLayer.style.transform = `translate3d(${currentX.toFixed(2)}px, ${currentY.toFixed(2)}px, 0)`;
+
+				if (Math.abs(targetX - currentX) > 0.1 || Math.abs(targetY - currentY) > 0.1) {
+					parallaxFrame = window.requestAnimationFrame(animatePetalParallax);
+					return;
+				}
+
+				parallaxFrame = null;
+			};
+
+			const handlePointerMove = (event) => {
+				const normalizedX = (event.clientX / window.innerWidth - 0.5) * 2;
+				const normalizedY = (event.clientY / window.innerHeight - 0.5) * 2;
+				targetX = normalizedX * maxOffsetX;
+				targetY = normalizedY * maxOffsetY;
+
+				if (!parallaxFrame) {
+					parallaxFrame = window.requestAnimationFrame(animatePetalParallax);
+				}
+			};
+
+			const resetParallax = () => {
+				targetX = 0;
+				targetY = 0;
+				if (!parallaxFrame) {
+					parallaxFrame = window.requestAnimationFrame(animatePetalParallax);
+				}
+			};
+
+			window.addEventListener('pointermove', handlePointerMove, { passive: true });
+			document.addEventListener('pointerleave', resetParallax);
 		}
 
 		function spawnWindPetals() {
@@ -1560,6 +1736,57 @@
 		document.addEventListener('keydown', (e) => {
 			if (e.key === 'Escape') closeLightbox();
 		});
+
+		/* --- Dorm logo petal burst --- */
+		const dormLogoBtn = document.getElementById('dorm-logo-btn');
+		if (dormLogoBtn) {
+			dormLogoBtn.addEventListener('click', () => {
+				if (document.querySelector('.petal-burst-overlay')) return;
+
+				const overlay = document.createElement('div');
+				overlay.className = 'petal-burst-overlay';
+
+				const colors = ['#fd96b8', '#ffb3cc', '#ffdde8', '#f0739a', '#ffc2d6', '#ffe0ed', '#ff85ab', '#ffcce0'];
+				// Sakura petal SVG path: wide/notched at top, tapers to rounded base
+				const petalPath = 'M12 5 Q10 1 6 1 C1 2 0 9 1 15 C3 22 8 27 12 28 C16 27 21 22 23 15 C24 9 23 2 18 1 Q14 1 12 5 Z';
+				const svgNS = 'http://www.w3.org/2000/svg';
+
+				for (let i = 0; i < 65; i++) {
+					const p = document.createElement('div');
+					p.className = 'burst-petal';
+					const size  = (12 + Math.random() * 12) | 0;
+					const color = colors[Math.floor(Math.random() * colors.length)];
+					const rot0  = (Math.random() * 360) | 0;
+					p.style.cssText = [
+						`left:${(Math.random() * 106 - 3).toFixed(1)}vw`,
+						`top:${(Math.random() * 112 - 6).toFixed(1)}vh`,
+						`--dur:${(1.5 + Math.random() * 0.65).toFixed(2)}s`,
+						`--delay:${(Math.random() * 0.45).toFixed(2)}s`,
+						`--dx:${((Math.random() - 0.5) * 80).toFixed(1)}px`,
+						`--dy:${(40 + Math.random() * 100).toFixed(1)}px`,
+						`--rot0:${rot0}deg`,
+						`--rot1:${rot0 + 180}deg`,
+						`--rot2:${rot0 + 290}deg`,
+					].join(';');
+
+					const svg = document.createElementNS(svgNS, 'svg');
+					svg.setAttribute('viewBox', '0 0 24 28');
+					svg.setAttribute('width', size + 'px');
+					svg.setAttribute('height', Math.round(size * 28 / 24) + 'px');
+					svg.setAttribute('aria-hidden', 'true');
+					const path = document.createElementNS(svgNS, 'path');
+					path.setAttribute('d', petalPath);
+					path.setAttribute('fill', color);
+					svg.appendChild(path);
+					p.appendChild(svg);
+
+					overlay.appendChild(p);
+				}
+
+				document.body.appendChild(overlay);
+				setTimeout(() => overlay.remove(), 2700);
+			});
+		}
 
 	</script>
 </body>

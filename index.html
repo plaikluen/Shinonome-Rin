@@ -1061,7 +1061,7 @@
 		</div>
 		<div class="wind-petal-burst" id="wind-petal-burst" aria-hidden="true"></div>
 	</div>
-	<audio id="bgm-sakura" src="./music/sakura.mp3" preload="auto" loop autoplay></audio>
+	<audio id="bgm-sakura" src="./music/sakura.mp3" preload="auto" loop></audio>
 
 	<button class="music-toggle-btn" id="music-toggle-btn" aria-label="ปิดเสียงเพลง">
 		<svg id="icon-sound-on" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -1326,16 +1326,6 @@
 			}
 		}
 
-		function resumeBgmOnce() {
-			tryPlayBgm();
-			document.removeEventListener('pointerdown', resumeBgmOnce);
-			document.removeEventListener('keydown', resumeBgmOnce);
-		}
-
-		tryPlayBgm();
-		document.addEventListener('pointerdown', resumeBgmOnce);
-		document.addEventListener('keydown', resumeBgmOnce);
-
 		function randomIn(min, max) {
 			return Math.random() * (max - min) + min;
 		}
@@ -1393,6 +1383,7 @@
 		function enterSite() {
 			if (!introOverlay || introLeaving) return;
 			introLeaving = true;
+			tryPlayBgm();
 
 			if (!reduceMotion) {
 				introOverlay.classList.add('wind-exit');

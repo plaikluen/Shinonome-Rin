@@ -65,7 +65,7 @@
 		}
 
 		:root {
-			--bg-1: #eec6a9;
+			--bg-1: #ffffff;
 			--bg-2: #eec6a9;
 			--bg-3: #fd96b8;
 			--surface: rgba(255, 255, 255, 0.76);
@@ -108,6 +108,25 @@
 				linear-gradient(152deg, var(--bg-1), var(--bg-2) 45%, var(--bg-3));
 			line-height: 1.78;
 			overflow-x: hidden;
+			cursor: url("./image/cursor-small.png") 3 2, auto;
+		}
+
+		a,
+		button,
+		[role="button"],
+		input[type="button"],
+		input[type="submit"],
+		input[type="reset"],
+		select,
+		label[for],
+		summary,
+		.media-card img,
+		.id-flip-card,
+		.dorm-logo-btn,
+		.music-toggle-btn,
+		.volume-slider,
+		.sakura-loader {
+			cursor: url("./image/cursor-small.png") 3 2, pointer;
 		}
 
 		.skip-link {
@@ -1007,11 +1026,60 @@
 			}
 		}
 
-		.music-toggle-btn {
+		.music-controls {
 			position: fixed;
 			bottom: 22px;
 			right: 22px;
 			z-index: 1000;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			gap: 8px;
+		}
+
+		.volume-panel {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			gap: 6px;
+			padding: 10px 8px;
+			border-radius: 999px;
+			background: rgba(255, 255, 255, 0.85);
+			border: 1px solid var(--line);
+			backdrop-filter: blur(10px);
+			-webkit-backdrop-filter: blur(10px);
+			box-shadow: 0 8px 20px rgba(196, 83, 119, 0.18);
+			opacity: 0;
+			transform: translateY(10px) scale(0.92);
+			pointer-events: none;
+			transition: opacity 0.25s ease, transform 0.25s ease;
+		}
+
+		.music-controls:hover .volume-panel,
+		.music-controls:focus-within .volume-panel {
+			opacity: 1;
+			transform: translateY(0) scale(1);
+			pointer-events: auto;
+		}
+
+		.volume-icon {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			color: var(--text-soft);
+		}
+
+		.volume-slider {
+			writing-mode: vertical-lr;
+			direction: rtl;
+			width: 22px;
+			height: 76px;
+			accent-color: var(--primary-strong);
+			padding: 0;
+			margin: 0;
+		}
+
+		.music-toggle-btn {
 			width: 44px;
 			height: 44px;
 			border-radius: 50%;
@@ -1201,6 +1269,11 @@
 				grid-template-columns: 1fr;
 			}
 
+			.id-card {
+				justify-self: center;
+				width: 100%;
+			}
+
 			.hero-photo {
 				width: 100%;
 				margin: 0 auto;
@@ -1306,24 +1379,41 @@
 	</div>
 	<audio id="bgm-sakura" src="./music/sakura.mp3" preload="auto" loop></audio>
 
-	<button class="music-toggle-btn" id="music-toggle-btn" aria-label="ปิดเสียงเพลง">
-		<span class="music-visualizer" aria-hidden="true">
-			<span></span>
-			<span></span>
-			<span></span>
-			<span></span>
-		</span>
-		<svg id="icon-sound-on" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-			<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
-			<path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
-			<path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
-		</svg>
-		<svg id="icon-sound-off" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="display:none">
-			<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
-			<line x1="23" y1="9" x2="17" y2="15"/>
-			<line x1="17" y1="9" x2="23" y2="15"/>
-		</svg>
-	</button>
+	<div class="music-controls" id="music-controls">
+		<div class="volume-panel" role="group" aria-label="ปรับระดับเสียง">
+			<span class="volume-icon" aria-hidden="true">
+				<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+					<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+					<path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
+					<path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
+				</svg>
+			</span>
+			<input type="range" class="volume-slider" id="volume-slider" min="0" max="1" step="0.05" value="0.4" aria-label="ระดับเสียง" orient="vertical" />
+			<span class="volume-icon" aria-hidden="true">
+				<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+					<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+				</svg>
+			</span>
+		</div>
+		<button class="music-toggle-btn" id="music-toggle-btn" aria-label="ปิดเสียงเพลง">
+			<span class="music-visualizer" aria-hidden="true">
+				<span></span>
+				<span></span>
+				<span></span>
+				<span></span>
+			</span>
+			<svg id="icon-sound-on" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+				<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+				<path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
+				<path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
+			</svg>
+			<svg id="icon-sound-off" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="display:none">
+				<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+				<line x1="23" y1="9" x2="17" y2="15"/>
+				<line x1="17" y1="9" x2="23" y2="15"/>
+			</svg>
+		</button>
+	</div>
 
 	<a href="#content" class="skip-link">ข้ามไปเนื้อหาหลัก</a>
 
@@ -1410,7 +1500,7 @@
 					<img src="./image/sheet1.jpg" alt="Character Sheet ของชิโนโนเมะ ริน" loading="lazy" />
 				</article>
 				<article class="media-card">
-					<h3>สื่อเวทย์</h3>
+					<h3>สื่อเวทย์ - ออกแบบโดยคุณ Reverie Siver (สวยมากเลยเนอะ สุดยอดTT)</h3>
 					<img src="./image/wand1.jpg" alt="สื่อเวทย์ wand1 ของชิโนโนเมะ ริน" loading="lazy" />
 				</article>
 			</div>
@@ -1435,11 +1525,11 @@
 				</article>
 				<article class="panel">
 					<h3>โรคประจำตัว</h3>
-					<p>ไม่มีค่ะ! แข็งแรงสดใส พร้อมกินหญ้า</p>
+					<p>ไม่มีค่ะ! แข็งแรงสดใส</p>
 				</article>
 				<article class="panel">
 					<h3>สถานะการศึกษา</h3>
-					<p>ขึ้นชั้นปีที่ 2 แล้วค่ะ! ต่อจากนี้ก็จะพยายามต่อไปนะคะ!!</p>
+					<p>สามารถอ่านออก เขียนได้เหมือนคนปกติแล้วค่ะ</p>
 				</article>
 			</div>
 		</section>
@@ -1465,7 +1555,7 @@
 					<h3>หลังเข้าโรงเรียน</h3>
 					<p>
 						เริ่มต้นจากศูนย์ อ่านไม่ออก เขียนไม่ได้ และไม่เคยเรียนในระบบ จึงตามเพื่อนไม่ทันและต้องซ้ำชั้นสองปี
-						อีกทั้งไม่มีเงินสนับสนุนจากผู้ปกครอง จึงทำงานพิเศษควบคู่การเรียน ใช้ชีวิตเรียบง่ายและประหยัด แต่ไม่เคยยอมแพ้
+						อีกทั้งไม่มีเงินสนับสนุนจากผู้ปกครอง จึงทำงานพิเศษควบคู่การเรียน ใช้ชีวิตเรียบง่ายและประหยัด
 					</p>
 				</article>
 			</div>
@@ -1578,6 +1668,7 @@
 		const musicBtn = document.getElementById('music-toggle-btn');
 		const iconSoundOn = document.getElementById('icon-sound-on');
 		const iconSoundOff = document.getElementById('icon-sound-off');
+		const volumeSlider = document.getElementById('volume-slider');
 		let isMuted = false;
 
 		function updateMusicButtonUi() {
@@ -1602,9 +1693,19 @@
 		let introLeaving = false;
 		let introCanEnter = false;
 
+		volumeSlider.addEventListener('input', () => {
+			const vol = parseFloat(volumeSlider.value);
+			bgmSakura.volume = vol;
+			if (isMuted && vol > 0) {
+				isMuted = false;
+				bgmSakura.muted = false;
+				updateMusicButtonUi();
+			}
+		});
+
 		function tryPlayBgm() {
 			if (!bgmSakura) return;
-			bgmSakura.volume = 0.4;
+			bgmSakura.volume = parseFloat(volumeSlider.value);
 			const playAttempt = bgmSakura.play();
 			if (playAttempt && typeof playAttempt.catch === 'function') {
 				playAttempt

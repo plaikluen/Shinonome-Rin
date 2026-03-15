@@ -651,6 +651,41 @@
 			border-radius: 14px;
 			border: 1px solid rgba(201, 127, 148, 0.3);
 			box-shadow: 0 10px 24px rgba(146, 91, 111, 0.2);
+			transition: transform 0.26s ease, box-shadow 0.26s ease;
+		}
+
+		.hero-photo-wrap:hover .hero-photo:not(.no-hover-boost),
+		.hero-photo-wrap:focus-within .hero-photo:not(.no-hover-boost) {
+			transform: scale(1.04);
+			box-shadow: 0 14px 28px rgba(146, 91, 111, 0.26);
+		}
+
+		.hero-photo-wrap.is-bursting .hero-photo {
+			transform: scale(1) !important;
+			box-shadow: 0 10px 24px rgba(146, 91, 111, 0.2) !important;
+		}
+
+		.spring-emblem {
+			width: clamp(92px, 19vw, 132px);
+			height: auto;
+			display: block;
+			filter: drop-shadow(0 5px 10px rgba(146, 91, 111, 0.22));
+			opacity: 0.96;
+		}
+
+		.spring-showcase {
+			display: grid;
+			justify-items: center;
+			margin-top: 14px;
+			margin-bottom: 6px;
+		}
+
+		.sakura-tap-target {
+			transform-origin: 50% 50%;
+		}
+
+		.sakura-tap-target.is-shaking {
+			animation: tapShake 0.42s ease;
 		}
 
 		.kicker {
@@ -1242,6 +1277,55 @@
 			}
 		}
 
+		@keyframes tapShake {
+			0% { transform: translateX(0) rotate(0deg); }
+			20% { transform: translateX(-3px) rotate(-1.2deg); }
+			40% { transform: translateX(4px) rotate(1.4deg); }
+			60% { transform: translateX(-3px) rotate(-1deg); }
+			80% { transform: translateX(3px) rotate(0.8deg); }
+			100% { transform: translateX(0) rotate(0deg); }
+		}
+
+		.tap-sakura-burst {
+			position: fixed;
+			inset: 0;
+			pointer-events: none;
+			z-index: 99998;
+			overflow: hidden;
+		}
+
+		.tap-sakura {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 11px;
+			height: 15px;
+			border-radius: 62% 40% 64% 38%;
+			background: linear-gradient(180deg, #ffd6e8 0%, #f393b7 100%);
+			opacity: 0;
+			filter: drop-shadow(0 2px 3px rgba(175, 70, 110, 0.22));
+			transform: translate3d(var(--x, 50vw), var(--y, 40vh), 0) rotate(0deg) scale(var(--s, 1));
+			animation: tapSakuraFall var(--dur, 1.7s) ease-out var(--delay, 0s) forwards;
+		}
+
+		.tap-sakura.alt {
+			background: linear-gradient(180deg, #fff0f6 0%, #f5afca 100%);
+		}
+
+		@keyframes tapSakuraFall {
+			0% {
+				opacity: 0;
+				transform: translate3d(var(--x), var(--y), 0) rotate(var(--r0, 0deg)) scale(var(--s));
+			}
+			16% {
+				opacity: 1;
+			}
+			100% {
+				opacity: 0;
+				transform: translate3d(calc(var(--x) + var(--dx, 0px)), calc(var(--y) + var(--dy, -150px)), 0) rotate(var(--r1, 280deg)) scale(calc(var(--s) * 0.92));
+			}
+		}
+
 		@media (prefers-reduced-motion: reduce) {
 			html {
 				scroll-behavior: auto;
@@ -1388,7 +1472,7 @@
 					<path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
 				</svg>
 			</span>
-			<input type="range" class="volume-slider" id="volume-slider" min="0" max="1" step="0.05" value="0.4" aria-label="ระดับเสียง" orient="vertical" />
+			<input type="range" class="volume-slider" id="volume-slider" min="0" max="1" step="0.05" value="0.1" aria-label="ระดับเสียง" orient="vertical" />
 			<span class="volume-icon" aria-hidden="true">
 				<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
 					<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
@@ -1462,7 +1546,7 @@
 						</div>
 					</div>
 					<div class="hero-photo-wrap">
-						<img class="hero-photo" src="./image/RinPhotoIDMSG.png" alt="RinPhotoIDMSG" loading="lazy" />
+						<img class="hero-photo sakura-tap-target" src="./image/RinPhotoIDMSG.png" alt="RinPhotoIDMSG" loading="lazy" />
 					</div>
 				</div>
 			</article>
@@ -1475,10 +1559,10 @@
 				<div class="id-flip-wrap">
 					<div class="id-flip-card" tabindex="0" aria-label="บัตรนักเรียน พลิกดูด้านหลังได้เมื่อวางเมาส์หรือโฟกัส">
 						<div class="id-face front">
-							<img src="./image/photoID_card.png" alt="บัตรนักเรียนด้านหน้าของชิโนโนเมะ ริน" loading="lazy" />
+							<img class="sakura-tap-target" src="./image/photoID_card.png" alt="บัตรนักเรียนด้านหน้าของชิโนโนเมะ ริน" loading="lazy" />
 						</div>
 						<div class="id-face back">
-							<img src="./image/idcard_back.jpg" alt="บัตรนักเรียนด้านหลังของชิโนโนเมะ ริน" loading="lazy" />
+							<img class="sakura-tap-target" src="./image/idcard_back.jpg" alt="บัตรนักเรียนด้านหลังของชิโนโนเมะ ริน" loading="lazy" />
 						</div>
 					</div>
 				</div>
@@ -1650,6 +1734,10 @@
 				</article>
 			</div>
 		</section>
+
+		<div class="spring-showcase reveal delay-3" aria-label="ตราฤดูใบไม้ผลิ">
+			<img class="spring-emblem sakura-tap-target" src="./image/spring.png" alt="ตราฤดูใบไม้ผลิ" loading="lazy" />
+		</div>
 	</main>
 
 	<script>
@@ -1665,6 +1753,9 @@
 		const brandLogo = document.getElementById('brand-logo');
 		const commuBrand = document.getElementById('commu-brand');
 		const petalsLayer = document.querySelector('.petals');
+		const heroPhotoWrap = document.querySelector('.hero-photo-wrap');
+		const heroPhoto = document.querySelector('.hero-photo');
+		const sakuraTapTargets = document.querySelectorAll('.sakura-tap-target');
 		const musicBtn = document.getElementById('music-toggle-btn');
 		const iconSoundOn = document.getElementById('icon-sound-on');
 		const iconSoundOff = document.getElementById('icon-sound-off');
@@ -1729,6 +1820,107 @@
 		function randomIn(min, max) {
 			return Math.random() * (max - min) + min;
 		}
+
+		function spawnTapSakura(targetRect) {
+			if (reduceMotion) return;
+			const overlay = document.createElement('div');
+			overlay.className = 'tap-sakura-burst';
+			const total = window.innerWidth < 640 ? 20 : 28;
+			const topY = targetRect.top + 2;
+
+			for (let i = 0; i < total; i += 1) {
+				const petal = document.createElement('span');
+				petal.className = i % 3 === 0 ? 'tap-sakura alt' : 'tap-sakura';
+				petal.style.setProperty('--x', `${(targetRect.left + randomIn(6, Math.max(8, targetRect.width - 6))).toFixed(1)}px`);
+				petal.style.setProperty('--y', `${(topY + randomIn(-4, 8)).toFixed(1)}px`);
+				petal.style.setProperty('--dx', `${randomIn(-95, 95).toFixed(1)}px`);
+				petal.style.setProperty('--dy', `${randomIn(-230, -120).toFixed(1)}px`);
+				petal.style.setProperty('--s', `${randomIn(0.7, 1.35).toFixed(2)}`);
+				petal.style.setProperty('--dur', `${randomIn(1.2, 2.1).toFixed(2)}s`);
+				petal.style.setProperty('--delay', `${randomIn(0, 0.25).toFixed(2)}s`);
+				petal.style.setProperty('--r0', `${randomIn(-45, 55).toFixed(0)}deg`);
+				petal.style.setProperty('--r1', `${randomIn(220, 520).toFixed(0)}deg`);
+				overlay.appendChild(petal);
+			}
+
+			document.body.appendChild(overlay);
+			window.setTimeout(() => {
+				overlay.remove();
+			}, 2300);
+		}
+
+		function spawnTapSakuraAround(targetRect) {
+			if (reduceMotion) return;
+			const overlay = document.createElement('div');
+			overlay.className = 'tap-sakura-burst';
+			const total = window.innerWidth < 640 ? 24 : 34;
+			const centerX = targetRect.left + (targetRect.width / 2);
+			const centerY = targetRect.top + (targetRect.height * 0.38);
+
+			for (let i = 0; i < total; i += 1) {
+				const petal = document.createElement('span');
+				const side = i % 4;
+				let startX = centerX;
+				let startY = centerY;
+
+				if (side === 0) {
+					startX = targetRect.left + randomIn(6, Math.max(8, targetRect.width - 6));
+					startY = targetRect.top + randomIn(-4, 6);
+				} else if (side === 1) {
+					startX = targetRect.right + randomIn(-6, 4);
+					startY = targetRect.top + randomIn(6, Math.max(8, targetRect.height - 6));
+				} else if (side === 2) {
+					startX = targetRect.left + randomIn(6, Math.max(8, targetRect.width - 6));
+					startY = targetRect.bottom + randomIn(-6, 4);
+				} else {
+					startX = targetRect.left + randomIn(-4, 6);
+					startY = targetRect.top + randomIn(6, Math.max(8, targetRect.height - 6));
+				}
+
+				const angle = Math.atan2(startY - centerY, startX - centerX) + randomIn(-0.35, 0.35);
+				const distance = randomIn(72, 182);
+				petal.className = i % 3 === 0 ? 'tap-sakura alt' : 'tap-sakura';
+				petal.style.setProperty('--x', `${startX.toFixed(1)}px`);
+				petal.style.setProperty('--y', `${startY.toFixed(1)}px`);
+				petal.style.setProperty('--dx', `${(Math.cos(angle) * distance).toFixed(1)}px`);
+				petal.style.setProperty('--dy', `${(Math.sin(angle) * distance).toFixed(1)}px`);
+				petal.style.setProperty('--s', `${randomIn(0.75, 1.4).toFixed(2)}`);
+				petal.style.setProperty('--dur', `${randomIn(1.1, 1.85).toFixed(2)}s`);
+				petal.style.setProperty('--delay', `${randomIn(0, 0.2).toFixed(2)}s`);
+				petal.style.setProperty('--r0', `${randomIn(-55, 55).toFixed(0)}deg`);
+				petal.style.setProperty('--r1', `${randomIn(200, 540).toFixed(0)}deg`);
+				overlay.appendChild(petal);
+			}
+
+			document.body.appendChild(overlay);
+			window.setTimeout(() => {
+				overlay.remove();
+			}, 2100);
+		}
+
+		function triggerTapSakura(target) {
+			target.classList.remove('is-shaking');
+			void target.offsetWidth;
+			target.classList.add('is-shaking');
+			window.setTimeout(() => {
+				target.classList.remove('is-shaking');
+			}, 430);
+
+			const rect = target.getBoundingClientRect();
+			if (target.classList.contains('hero-photo')) {
+				target.classList.add('no-hover-boost');
+				target.blur();
+				target.closest('.hero-photo-wrap')?.classList.add('is-bursting');
+				spawnTapSakuraAround(rect);
+				return;
+			}
+			spawnTapSakura(rect);
+		}
+
+		heroPhotoWrap?.addEventListener('pointerleave', () => {
+			heroPhotoWrap.classList.remove('is-bursting');
+			heroPhoto?.classList.remove('no-hover-boost');
+		});
 
 		if (petalsLayer && !reduceMotion) {
 			let targetX = 0;
@@ -1852,6 +2044,20 @@
 
 		brandLogo.addEventListener('error', () => {
 			commuBrand.classList.add('has-fallback');
+		});
+
+		sakuraTapTargets.forEach((img) => {
+			img.setAttribute('tabindex', '0');
+			img.setAttribute('role', 'button');
+			img.setAttribute('aria-label', `เอฟเฟกต์ซากุระ: ${img.alt}`);
+			img.addEventListener('click', () => {
+				triggerTapSakura(img);
+			});
+			img.addEventListener('keydown', (e) => {
+				if (e.key !== 'Enter' && e.key !== ' ') return;
+				e.preventDefault();
+				triggerTapSakura(img);
+			});
 		});
 
 		document.querySelectorAll('.media-card img').forEach((img) => {

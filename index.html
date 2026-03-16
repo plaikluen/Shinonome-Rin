@@ -292,11 +292,32 @@
 		}
 
 		.intro-caption {
-			font-family: "Mochiy Pop One", "Sarabun", sans-serif;
-			font-size: clamp(1rem, 2.5vw, 1.22rem);
-			letter-spacing: 0.03em;
+			font-family: "Futehodo", "Mochiy Pop One", "Sarabun", sans-serif;
+			font-size: clamp(0.98rem, 2.2vw, 1.35rem);
+			letter-spacing: 0.04em;
 			color: #c55487;
-			opacity: 0.92;
+			padding: 6px 12px;
+			border-radius: 999px;
+			background: rgba(255, 250, 253, 0.84);
+			border: 1px solid rgba(197, 84, 135, 0.22);
+			box-shadow: 0 8px 16px rgba(197, 84, 135, 0.12);
+			opacity: 0;
+			transform: translateY(10px) scale(0.94);
+			transition: opacity 0.35s ease, transform 0.35s ease;
+			pointer-events: none;
+		}
+
+		.intro-caption::before,
+		.intro-caption::after {
+			content: "✦";
+			font-size: 0.68em;
+			color: #f08db5;
+			margin: 0 6px;
+		}
+
+		.sakura-loader.ready-enter + .intro-caption {
+			opacity: 1;
+			transform: translateY(0) scale(1);
 		}
 
 
@@ -1013,6 +1034,17 @@
 			}
 		}
 
+		@keyframes clickHereBounce {
+			0%,
+			100% {
+				transform: translateY(0) scale(1);
+			}
+
+			50% {
+				transform: translateY(-5px) scale(1.03);
+			}
+		}
+
 		@keyframes windPetalFall {
 			0% {
 				opacity: 0;
@@ -1452,6 +1484,7 @@
 				<span class="sakura-petal" style="--i: 4"></span>
 				<span class="sakura-core"></span>
 			</div>
+			<p class="intro-caption" id="intro-caption" aria-hidden="true">Click Sakura!</p>
 		</div>
 		<div class="wind-petal-burst" id="wind-petal-burst" aria-hidden="true"></div>
 	</div>
@@ -1738,6 +1771,7 @@
 		// Lightbox
 		const introOverlay = document.getElementById('intro-overlay');
 		const sakuraLoader = document.getElementById('sakura-loader');
+		const introCaption = document.getElementById('intro-caption');
 		const windPetalBurst = document.getElementById('wind-petal-burst');
 		const bgmSakura = document.getElementById('bgm-sakura');
 		const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -1996,6 +2030,7 @@
 			if (!sakuraLoader) return;
 			introCanEnter = true;
 			sakuraLoader.classList.add('ready-enter');
+			introCaption?.setAttribute('aria-hidden', 'false');
 			sakuraLoader.focus();
 		}
 

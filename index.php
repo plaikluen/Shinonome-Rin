@@ -1,0 +1,2307 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Shinonome Rin | Student Profile</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com" />
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+	<link href="https://fonts.googleapis.com/css2?family=Mochiy+Pop+One&family=Sarabun:wght@300;400;500;700&display=swap" rel="stylesheet" />
+	<style>
+		@font-face {
+			font-family: "Futehodo";
+			src: url("./font/Futehodo-MaruGothic_1.02/Futehodo-MaruGothic.ttf") format("truetype");
+			font-weight: 400;
+			font-style: normal;
+			font-display: swap;
+		}
+
+		@font-face {
+			font-family: "CMU";
+			src: url("./font/CMU/CMU-Regular.woff") format("woff");
+			font-weight: 400;
+			font-style: normal;
+			font-display: swap;
+		}
+
+		@font-face {
+			font-family: "CMU";
+			src: url("./font/CMU/CMU-Italic.woff") format("woff");
+			font-weight: 400;
+			font-style: italic;
+			font-display: swap;
+		}
+
+		@font-face {
+			font-family: "CMU";
+			src: url("./font/CMU/CMU-Bold.woff") format("woff");
+			font-weight: 700;
+			font-style: normal;
+			font-display: swap;
+		}
+
+		@font-face {
+			font-family: "CMU";
+			src: url("./font/CMU/CMU-BoldItalic.woff") format("woff");
+			font-weight: 700;
+			font-style: italic;
+			font-display: swap;
+		}
+
+		@font-face {
+			font-family: "CMU";
+			src: url("./font/CMU/CMU-Light.woff") format("woff");
+			font-weight: 300;
+			font-style: normal;
+			font-display: swap;
+		}
+
+		@font-face {
+			font-family: "CMU";
+			src: url("./font/CMU/CMU-LightItalic.woff") format("woff");
+			font-weight: 300;
+			font-style: italic;
+			font-display: swap;
+		}
+
+		:root {
+			--bg-1: #ffffff;
+			--bg-2: #eec6a9;
+			--bg-3: #fd96b8;
+			--surface: rgba(255, 255, 255, 0.76);
+			--primary: #fd96b8;
+			--primary-strong: #c45377;
+			--accent: #eec6a9;
+			--accent-soft: #eec6a9;
+			--text: #c45377;
+			--text-soft: #9f4a67;
+			--line: rgba(196, 83, 119, 0.34);
+			--shadow: 0 16px 34px rgba(196, 83, 119, 0.2);
+			--radius-lg: 22px;
+			--radius-md: 16px;
+			--radius-sm: 12px;
+		}
+
+		* {
+			box-sizing: border-box;
+			margin: 0;
+			padding: 0;
+		}
+
+		html,
+		body {
+			min-height: 100%;
+		}
+
+		html {
+			scroll-behavior: smooth;
+		}
+
+		body {
+			font-family: "CMU", "Sarabun", serif;
+			color: var(--text);
+			background:
+				radial-gradient(circle at 12% 8%, rgba(238, 198, 169, 0.55) 0, rgba(238, 198, 169, 0.06) 33%),
+				radial-gradient(circle at 86% 14%, rgba(253, 150, 184, 0.45) 0, rgba(253, 150, 184, 0.06) 38%),
+				repeating-radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.26) 0 2px, rgba(255, 255, 255, 0) 2px 24px),
+				linear-gradient(152deg, var(--bg-1), var(--bg-2) 45%, var(--bg-3));
+			line-height: 1.78;
+			overflow-x: hidden;
+			cursor: url("./image/cursor-small.png") 3 2, auto;
+		}
+
+		a,
+		button,
+		[role="button"],
+		input[type="button"],
+		input[type="submit"],
+		input[type="reset"],
+		select,
+		label[for],
+		summary,
+		.media-card img,
+		.id-flip-card,
+		.dorm-logo-btn,
+		.music-toggle-btn,
+		.volume-slider,
+		.sakura-loader {
+			cursor: url("./image/cursor-small.png") 3 2, pointer;
+		}
+
+		.skip-link {
+			position: fixed;
+			left: 12px;
+			top: -44px;
+			z-index: 10050;
+			padding: 8px 12px;
+			border-radius: 10px;
+			background: #ffffff;
+			border: 1px solid var(--line);
+			color: var(--text);
+			text-decoration: none;
+			font-weight: 700;
+			transition: top 0.2s ease;
+		}
+
+		.skip-link:focus {
+			top: 12px;
+		}
+
+		.intro-overlay {
+			position: fixed;
+			inset: 0;
+			z-index: 12000;
+			display: grid;
+			place-items: center;
+			padding: 20px;
+			background:
+				radial-gradient(circle at 20% 12%, rgba(255, 244, 248, 0.96), rgba(255, 244, 248, 0.18) 36%),
+				radial-gradient(circle at 84% 78%, rgba(255, 227, 236, 0.92), rgba(255, 227, 236, 0.16) 42%),
+				linear-gradient(145deg, #f7e9de 0%, #f4c8d7 52%, #ef9db8 100%);
+			opacity: 1;
+			visibility: visible;
+			transition: opacity 0.65s ease, visibility 0.65s ease;
+		}
+
+		.intro-overlay.is-hidden {
+			opacity: 0;
+			visibility: hidden;
+			pointer-events: none;
+		}
+
+		.intro-overlay.wind-exit {
+			animation: introWindFade 1.18s ease forwards;
+		}
+
+		.intro-overlay::before,
+		.intro-overlay::after {
+			content: "";
+			position: absolute;
+			width: min(52vw, 540px);
+			height: min(52vw, 540px);
+			border-radius: 50%;
+			pointer-events: none;
+		}
+
+		.intro-overlay::before {
+			background: radial-gradient(circle, rgba(255, 255, 255, 0.34) 0%, rgba(255, 255, 255, 0) 70%);
+			transform: translate(-25vw, -16vh);
+		}
+
+		.intro-overlay::after {
+			background: radial-gradient(circle, rgba(255, 196, 219, 0.35) 0%, rgba(255, 196, 219, 0) 72%);
+			transform: translate(24vw, 18vh);
+		}
+
+		.intro-stage {
+			position: relative;
+			z-index: 1;
+			display: grid;
+			justify-items: center;
+			gap: 26px;
+			text-align: center;
+		}
+
+		.wind-petal-burst {
+			position: absolute;
+			inset: -14vh -12vw 0 -12vw;
+			overflow: hidden;
+			pointer-events: none;
+			z-index: 3;
+		}
+
+		.wind-petal {
+			position: absolute;
+			top: -14vh;
+			width: 16px;
+			height: 24px;
+			border-radius: 60% 40% 62% 40%;
+			background: linear-gradient(180deg, #ffd8e8 0%, #f08db5 100%);
+			opacity: 0;
+			filter: drop-shadow(0 2px 3px rgba(175, 70, 110, 0.26));
+			transform: translate3d(0, -10vh, 0) rotate(0deg) scale(var(--s, 1));
+			animation: windPetalFall var(--dur, 1.6s) cubic-bezier(0.18, 0.72, 0.18, 1) forwards;
+			animation-delay: var(--delay, 0s);
+		}
+
+		.wind-petal.alt {
+			background: linear-gradient(180deg, #fff0f6 0%, #f6afcc 100%);
+		}
+
+		.sakura-loader {
+			position: relative;
+			width: clamp(160px, 30vw, 260px);
+			aspect-ratio: 1;
+			display: grid;
+			place-items: center;
+			transform-origin: 50% 50%;
+			will-change: transform;
+			transform: translateZ(0);
+			pointer-events: none;
+		}
+
+		.sakura-petal {
+			position: absolute;
+			width: 30%;
+			height: 50%;
+			left: 50%;
+			top: 50%;
+			border-radius: 58% 58% 66% 66%;
+			background: radial-gradient(circle at 50% 18%, #fff2f8 0 24%, #f9bfd7 62%, #e88bb4 100%);
+			box-shadow: inset 0 -4px 10px rgba(178, 90, 124, 0.22), 0 10px 16px rgba(170, 87, 121, 0.24);
+			transform-origin: 50% 50%;
+			transform: translate(-50%, -50%) rotate(calc(var(--i) * 72deg)) translateY(-49%) scale(0);
+			opacity: 0;
+			animation: bloomPetal 0.55s cubic-bezier(0.21, 0.89, 0.33, 1.24) forwards;
+			animation-delay: calc(var(--i) * 0.34s);
+		}
+
+		.sakura-core {
+			position: absolute;
+			left: 50%;
+			top: 50%;
+			width: 18%;
+			aspect-ratio: 1;
+			border-radius: 50%;
+			background: radial-gradient(circle at 38% 32%, #fffef6 0%, #ffe2ca 52%, #f2c39a 100%);
+			box-shadow: 0 0 0 6px rgba(255, 235, 198, 0.25), 0 4px 10px rgba(182, 122, 73, 0.2);
+			opacity: 0;
+			transform: translate(-50%, -50%) scale(0.4);
+			animation: corePop 0.45s ease forwards;
+			animation-delay: 1.78s;
+		}
+
+		.sakura-loader.spin {
+			transform-origin: 50% 50%;
+			animation: sakuraSpin 1.08s cubic-bezier(0.22, 0.78, 0.27, 1) forwards;
+		}
+
+		.sakura-loader.spin .sakura-petal,
+		.sakura-loader.spin .sakura-core {
+			filter: blur(1.6px) saturate(1.06);
+		}
+
+		.sakura-loader.ready-enter {
+			pointer-events: auto;
+			cursor: pointer;
+			animation: sakuraTapInvite 1.8s ease-in-out infinite;
+		}
+
+		.sakura-loader:focus-visible {
+			outline: none;
+		}
+
+		.intro-caption {
+			font-family: "Futehodo", "Mochiy Pop One", "Sarabun", sans-serif;
+			font-size: clamp(0.98rem, 2.2vw, 1.35rem);
+			letter-spacing: 0.04em;
+			color: #c55487;
+			padding: 6px 12px;
+			border-radius: 999px;
+			background: rgba(255, 250, 253, 0.84);
+			border: 1px solid rgba(197, 84, 135, 0.22);
+			box-shadow: 0 8px 16px rgba(197, 84, 135, 0.12);
+			opacity: 0;
+			transform: translateY(10px) scale(0.94);
+			transition: opacity 0.35s ease, transform 0.35s ease;
+			pointer-events: none;
+		}
+
+		.intro-caption::before,
+		.intro-caption::after {
+			content: "✦";
+			font-size: 0.68em;
+			color: #f08db5;
+			margin: 0 6px;
+		}
+
+		.sakura-loader.ready-enter + .intro-caption {
+			opacity: 1;
+			transform: translateY(0) scale(1);
+		}
+
+
+		:focus-visible {
+			outline: 2px solid var(--primary-strong);
+			outline-offset: 2px;
+		}
+
+		.commu-masthead {
+			display: grid;
+			grid-template-columns: 170px 1fr;
+			gap: 18px;
+			align-items: center;
+			padding: 14px 18px;
+			margin-bottom: 18px;
+			border-radius: 20px;
+			background: transparent;
+			border: none;
+			box-shadow: none;
+			position: relative;
+			overflow: hidden;
+		}
+
+		.commu-masthead::before {
+			content: "";
+			position: absolute;
+			inset: 0;
+			pointer-events: none;
+			background: linear-gradient(120deg, rgba(255, 244, 248, 0.06), rgba(255, 244, 248, 0));
+		}
+
+		.brand-logo {
+			width: 160px;
+			height: 160px;
+			object-fit: contain;
+			display: block;
+		}
+
+		.brand-fallback {
+			width: 160px;
+			height: 160px;
+			display: none;
+			align-items: center;
+			justify-content: center;
+			font-size: 2.4rem;
+			font-weight: 700;
+			border-radius: 24px;
+			color: #fff;
+			background: var(--primary-strong);
+		}
+
+		.commu-masthead.has-fallback .brand-fallback {
+			display: inline-flex;
+		}
+
+		.commu-masthead.has-fallback .brand-logo {
+			display: none;
+		}
+
+		.brand-copy {
+			display: grid;
+			gap: 6px;
+		}
+
+		.brand-jp {
+			font-family: "Mochiy Pop One", "Sarabun", sans-serif;
+			font-size: clamp(1.4rem, 2.7vw, 2.35rem);
+			line-height: 1.15;
+			color: #1f3767;
+			font-weight: 400;
+			text-shadow: 0 1px 0 rgba(255, 255, 255, 0.46), 0 4px 10px rgba(31, 55, 103, 0.18);
+		}
+
+		.brand-title {
+			font-family: "CMU", "Sarabun", serif;
+			font-size: clamp(1.08rem, 1.8vw, 1.85rem);
+			font-weight: 700;
+			color: #6b4e4a;
+			text-shadow: 0 1px 0 rgba(255, 255, 255, 0.44);
+			white-space: nowrap;
+		}
+
+		.brand-divider {
+			height: 12px;
+			position: relative;
+			margin-top: 2px;
+		}
+
+		.brand-divider::before {
+			content: "";
+			position: absolute;
+			left: 0;
+			right: 38px;
+			top: 50%;
+			height: 4px;
+			transform: translateY(-50%);
+			border-radius: 999px;
+			background: repeating-linear-gradient(
+				-45deg,
+				#2f4a86,
+				#2f4a86 5px,
+				#6c81b7 5px,
+				#6c81b7 10px
+			);
+		}
+
+		.brand-divider::after {
+			content: "✦";
+			position: absolute;
+			right: 10px;
+			top: 50%;
+			transform: translateY(-58%);
+			color: #9a7f70;
+			font-size: 1.2rem;
+		}
+
+		.petals {
+			position: fixed;
+			inset: 0;
+			pointer-events: none;
+			z-index: 0;
+			will-change: transform;
+		}
+
+		.petal {
+			position: absolute;
+			top: -14vh;
+			width: 18px;
+			height: 24px;
+			border-radius: 60% 40% 60% 40%;
+			background: linear-gradient(180deg, #ffc5d7 0%, #f17aa0 100%);
+			opacity: 0.82;
+			filter: drop-shadow(0 2px 3px rgba(196, 83, 119, 0.28));
+			animation: fall linear infinite;
+		}
+
+		.petal:nth-child(odd) {
+			background: linear-gradient(180deg, #ffe3eb 0%, #f9a2be 100%);
+		}
+
+		.container {
+			width: min(1120px, 92vw);
+			margin: 32px auto 56px;
+			position: relative;
+			z-index: 2;
+		}
+
+		.hero {
+			display: grid;
+			grid-template-columns: minmax(0, 1fr) minmax(280px, 320px);
+			gap: 20px;
+			margin-bottom: 20px;
+		}
+
+		.media-grid {
+			display: grid;
+			grid-template-columns: 1fr;
+			gap: 12px;
+			max-width: 760px;
+			margin: 0 auto;
+		}
+
+		.media-card {
+			padding: 14px;
+			background: rgba(255, 255, 255, 0.9);
+			border: 1px solid rgba(201, 127, 148, 0.24);
+			border-radius: var(--radius-md);
+			transition: transform 0.35s ease, box-shadow 0.35s ease;
+			animation: floaty 4.2s ease-in-out infinite;
+		}
+
+		.media-card:nth-child(2) {
+			animation-delay: 0.5s;
+		}
+
+		.media-card:hover {
+			transform: translateY(-4px) scale(1.01);
+			box-shadow: 0 12px 24px rgba(146, 91, 111, 0.16);
+		}
+
+		.media-card h3 {
+			margin-bottom: 8px;
+			font-size: 1.02rem;
+			color: #74344a;
+		}
+
+		.media-card img {
+			width: 100%;
+			height: auto;
+			display: block;
+			border-radius: 12px;
+			border: 1px solid rgba(201, 127, 148, 0.3);
+		}
+
+		.media-note {
+			font-size: 0.9rem;
+			color: var(--text-soft);
+		}
+
+		.media-card img {
+			cursor: zoom-in;
+		}
+
+		.lightbox {
+			position: fixed;
+			inset: 0;
+			z-index: 9000;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			background: rgba(30, 10, 16, 0.82);
+			backdrop-filter: blur(6px);
+			-webkit-backdrop-filter: blur(6px);
+			opacity: 0;
+			pointer-events: none;
+			transition: opacity 0.3s ease;
+		}
+
+		.lightbox.open {
+			opacity: 1;
+			pointer-events: auto;
+		}
+
+		.lightbox img {
+			max-width: min(92vw, 900px);
+			max-height: 92vh;
+			border-radius: 16px;
+			box-shadow: 0 24px 60px rgba(0, 0, 0, 0.55);
+			transform: scale(0.88);
+			transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+			object-fit: contain;
+		}
+
+		.lightbox.open img {
+			transform: scale(1);
+		}
+
+		.lightbox-close {
+			position: absolute;
+			top: 18px;
+			right: 22px;
+			width: 40px;
+			height: 40px;
+			border-radius: 50%;
+			border: 1.5px solid rgba(255, 200, 210, 0.5);
+			background: rgba(255, 255, 255, 0.12);
+			color: #fff;
+			font-size: 1.4rem;
+			line-height: 40px;
+			text-align: center;
+			cursor: pointer;
+			transition: background 0.2s;
+		}
+
+		.lightbox-close:hover {
+			background: rgba(239, 143, 168, 0.45);
+		}
+
+		.card {
+			background: rgba(255, 249, 252, 0.92);
+			border: 1.5px solid var(--line);
+			border-radius: var(--radius-lg);
+			box-shadow: var(--shadow);
+			position: relative;
+			overflow: hidden;
+			transition: transform 0.36s cubic-bezier(0.22, 0.8, 0.36, 1), box-shadow 0.36s cubic-bezier(0.22, 0.8, 0.36, 1);
+		}
+
+		.card:hover {
+			transform: translateY(-3px);
+			box-shadow: 0 22px 38px rgba(196, 83, 119, 0.22);
+		}
+
+		.card::after {
+			content: "";
+			position: absolute;
+			left: 14px;
+			right: 14px;
+			top: 0;
+			height: 4px;
+			border-bottom-left-radius: 6px;
+			border-bottom-right-radius: 6px;
+			background: linear-gradient(90deg, rgba(238, 198, 169, 0.82), rgba(253, 150, 184, 0.82));
+		}
+
+		.hero-main {
+			display: flex;
+			align-items: flex-start;
+			justify-content: center;
+			padding: 24px 24px 24px 28px;
+			position: relative;
+			overflow: hidden;
+		}
+
+		.hero-layout {
+			display: grid;
+			grid-template-columns: 1fr minmax(220px, 330px);
+			gap: 18px;
+			align-items: start;
+			width: 100%;
+			margin: 0 auto;
+		}
+
+		.hero-copy p {
+			max-width: 60ch;
+		}
+
+		.hero-meta {
+			display: grid;
+			gap: 8px;
+			margin-top: 10px;
+		}
+
+		.hero-meta-item {
+			display: inline-flex;
+			align-items: baseline;
+			gap: 8px;
+			width: fit-content;
+			padding: 8px 14px;
+			border-radius: 999px;
+			background: rgba(255, 255, 255, 0.9);
+			border: 1px solid rgba(201, 127, 148, 0.28);
+			color: #7a334b;
+			font-size: 0.9rem;
+			line-height: 1.3;
+		}
+
+		.hero-meta-item small {
+			font-size: 0.76rem;
+			color: var(--text-soft);
+		}
+
+		.hero-photo-wrap {
+			display: grid;
+			gap: 10px;
+			justify-items: center;
+			align-content: start;
+		}
+
+		.hero-photo {
+			width: 100%;
+			display: block;
+			margin: 0;
+			aspect-ratio: 3 / 4;
+			max-height: 440px;
+			object-fit: cover;
+			object-position: center top;
+			justify-self: end;
+			border-radius: 14px;
+			border: 1px solid rgba(201, 127, 148, 0.3);
+			box-shadow: 0 10px 24px rgba(146, 91, 111, 0.2);
+			transition: transform 0.26s ease, box-shadow 0.26s ease;
+		}
+
+		.hero-photo-wrap:hover .hero-photo:not(.no-hover-boost),
+		.hero-photo-wrap:focus-within .hero-photo:not(.no-hover-boost) {
+			transform: scale(1.04);
+			box-shadow: 0 14px 28px rgba(146, 91, 111, 0.26);
+		}
+
+		.hero-photo-wrap.is-bursting .hero-photo {
+			transform: scale(1) !important;
+			box-shadow: 0 10px 24px rgba(146, 91, 111, 0.2) !important;
+		}
+
+		.spring-emblem {
+			width: clamp(92px, 19vw, 132px);
+			height: auto;
+			display: block;
+			filter: drop-shadow(0 5px 10px rgba(146, 91, 111, 0.22));
+			opacity: 0.96;
+		}
+
+		.spring-showcase {
+			display: grid;
+			justify-items: center;
+			margin-top: 14px;
+			margin-bottom: 6px;
+		}
+
+		.sakura-tap-target {
+			transform-origin: 50% 50%;
+		}
+
+		.sakura-tap-target.is-shaking {
+			animation: tapShake 0.42s ease;
+		}
+
+		.kicker {
+			font-size: 0.82rem;
+			letter-spacing: 0.08em;
+			color: var(--text-soft);
+			text-transform: uppercase;
+			margin-bottom: 8px;
+		}
+
+		h1,
+		h2,
+		h3 {
+			font-family: "CMU", "Sarabun", serif;
+			line-height: 1.25;
+		}
+
+		h1 {
+			font-size: clamp(2rem, 3vw, 3rem);
+			margin-bottom: 8px;
+		}
+
+		.name-jp {
+			font-family: "Mochiy Pop One", "Sarabun", sans-serif;
+			font-size: clamp(1.2rem, 2vw, 1.75rem);
+			font-weight: 400;
+			color: var(--primary-strong);
+			margin-bottom: 10px;
+		}
+
+		.id-card {
+			width: min(100%, 320px);
+			justify-self: end;
+			padding: 22px;
+			display: grid;
+			gap: 14px;
+			align-content: start;
+		}
+
+		.id-flip-wrap {
+			perspective: 1400px;
+		}
+
+		.id-flip-card {
+			position: relative;
+			width: min(100%, 320px);
+			margin: 2px auto 6px;
+			aspect-ratio: 1.58 / 1;
+			transform-style: preserve-3d;
+			transition: transform 0.7s cubic-bezier(0.22, 0.8, 0.22, 1);
+			border-radius: 18px;
+		}
+
+		.id-flip-wrap:hover .id-flip-card,
+		.id-flip-wrap:focus-within .id-flip-card {
+			transform: rotateY(180deg);
+		}
+
+		.id-face {
+			position: absolute;
+			inset: 0;
+			border-radius: 18px;
+			overflow: hidden;
+			backface-visibility: hidden;
+			-webkit-backface-visibility: hidden;
+			background: rgba(255, 255, 255, 0.92);
+			border: 1px solid rgba(201, 127, 148, 0.28);
+			box-shadow: 0 14px 28px rgba(146, 91, 111, 0.16);
+		}
+
+		.id-face img {
+			width: 100%;
+			height: 100%;
+			display: block;
+			object-fit: cover;
+		}
+
+		.id-face.back {
+			transform: rotateY(180deg);
+		}
+
+		.id-flip-hint {
+			text-align: center;
+			font-size: 0.8rem;
+			color: var(--text-soft);
+		}
+
+		.id-head {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			border-bottom: 1px dashed var(--line);
+			padding-bottom: 8px;
+			margin-bottom: 2px;
+		}
+
+		.id-head .tag {
+			font-size: 0.82rem;
+			background: rgba(239, 143, 168, 0.18);
+			color: #7c3552;
+			border-radius: 999px;
+			padding: 5px 10px;
+		}
+
+		.id-grid {
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+			gap: 10px;
+			font-size: 0.95rem;
+		}
+
+		.id-item {
+			background: rgba(255, 247, 250, 0.94);
+			border: 1px solid rgba(201, 127, 148, 0.22);
+			border-radius: var(--radius-sm);
+			padding: 10px;
+		}
+
+		.id-item small {
+			display: block;
+			font-size: 0.78rem;
+			color: var(--text-soft);
+			margin-bottom: 2px;
+		}
+
+		.section {
+			margin-top: 20px;
+			padding: 28px 30px 32px;
+		}
+
+		.section h2 {
+			display: block;
+			font-size: clamp(1.18rem, 2vw, 1.52rem);
+			margin-bottom: 20px;
+			padding-bottom: 10px;
+			padding-left: 14px;
+			border-left: 3px solid var(--primary-strong);
+			border-bottom: 1px solid rgba(196, 83, 119, 0.18);
+			color: #5c2338;
+			letter-spacing: 0.01em;
+		}
+
+		.info-grid {
+			display: grid;
+			grid-template-columns: repeat(4, minmax(0, 1fr));
+			gap: 10px;
+		}
+
+		.info-item {
+			padding: 10px 12px;
+			border: 1px solid rgba(201, 127, 148, 0.22);
+			border-radius: var(--radius-sm);
+			background: rgba(255, 247, 250, 0.9);
+		}
+
+		.info-item .label {
+			display: block;
+			color: var(--text-soft);
+			font-size: 0.8rem;
+			margin-bottom: 4px;
+		}
+
+		.history {
+			display: grid;
+			grid-template-columns: repeat(3, minmax(0, 1fr));
+			gap: 12px;
+		}
+
+		.history article,
+		.magic article {
+			background: rgba(255, 248, 250, 0.9);
+			border: 1px solid rgba(201, 127, 148, 0.22);
+			border-radius: var(--radius-md);
+			padding: 15px;
+			line-height: 1.76;
+		}
+
+		.magic {
+			display: grid;
+			grid-template-columns: 1fr;
+			gap: 12px;
+		}
+
+		.feature-box {
+			background: linear-gradient(160deg, rgba(255, 250, 245, 0.96), rgba(255, 238, 244, 0.92));
+			border: 1px solid rgba(214, 115, 145, 0.38);
+			box-shadow: 0 10px 22px rgba(179, 82, 119, 0.12);
+			border-radius: var(--radius-md);
+			padding: 18px 20px;
+			line-height: 1.78;
+			display: grid;
+			gap: 10px;
+		}
+
+		.feature-box h3 {
+			color: #6d2940;
+			margin: 2px 0 4px;
+		}
+
+		.feature-box p {
+			margin: 0;
+		}
+
+		.feature-box .position-pill {
+			display: inline-block;
+			padding: 4px 12px;
+			border-radius: 999px;
+			background: rgba(255, 255, 255, 0.72);
+			border: 1px solid rgba(214, 115, 145, 0.28);
+			font-weight: 600;
+			color: #7f2f49;
+			margin-bottom: 2px;
+		}
+
+		.spirit-feature .spirit-lead {
+			font-weight: 500;
+			color: #c45377;
+			padding-left: 12px;
+			border-left: 3px solid rgba(214, 115, 145, 0.45);
+		}
+
+		.spirit-feature .spirit-story {
+			display: grid;
+			gap: 10px;
+			color: #c45377;
+		}
+
+		#spirit-choice {
+			max-width: 100%;
+		}
+
+		.spirit-box {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 10px;
+			margin-bottom: 12px;
+		}
+
+		.spirit-pill {
+			background: linear-gradient(135deg, rgba(246, 183, 134, 0.26), rgba(239, 143, 168, 0.2));
+			border: 1px solid rgba(201, 127, 148, 0.33);
+			border-radius: 999px;
+			padding: 8px 14px;
+			font-weight: 500;
+			color: #6f2d43;
+		}
+
+		.triple {
+			display: grid;
+			grid-template-columns: repeat(3, minmax(0, 1fr));
+			gap: 12px;
+			margin-top: 12px;
+		}
+
+		.triple .panel {
+			background: rgba(255, 247, 250, 0.9);
+			border: 1px solid rgba(201, 127, 148, 0.2);
+			border-radius: var(--radius-md);
+			padding: 14px;
+			min-height: 100%;
+		}
+
+		.panel h3 {
+			margin-bottom: 6px;
+			font-size: 1.08rem;
+			color: #7a334b;
+		}
+
+		.panel-list {
+			margin: 0;
+			padding-left: 1.1rem;
+			display: grid;
+			gap: 6px;
+			line-height: 1.58;
+		}
+
+		.panel-list li::marker {
+			color: #d86691;
+		}
+
+		.trait-list {
+			display: grid;
+			gap: 12px;
+		}
+
+		.trait {
+			border-left: 4px solid rgba(239, 143, 168, 0.7);
+			padding-left: 12px;
+		}
+
+		.foot-grid {
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+			gap: 12px;
+		}
+
+		.small-card {
+			padding: 16px;
+			border-radius: var(--radius-md);
+			border: 1px solid rgba(201, 127, 148, 0.22);
+			background: rgba(255, 247, 250, 0.9);
+		}
+
+		.small-card h3 {
+			margin-bottom: 6px;
+			color: #6f2f45;
+			font-size: 1.02rem;
+		}
+
+		.social-btn {
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			margin-top: 6px;
+			padding: 5px 11px;
+			border-radius: 999px;
+			border: 1px solid rgba(201, 127, 148, 0.34);
+			background: linear-gradient(135deg, rgba(246, 183, 134, 0.22), rgba(239, 143, 168, 0.22));
+			color: #6f2d43;
+			font-weight: 600;
+			font-size: 0.9rem;
+			line-height: 1.2;
+			text-decoration: none;
+			transition: transform 0.2s ease, box-shadow 0.2s ease;
+		}
+
+		.social-btn:hover,
+		.social-btn:focus-visible {
+			transform: translateY(-1px);
+			box-shadow: 0 6px 14px rgba(175, 70, 110, 0.18);
+		}
+
+		.reveal {
+			opacity: 0;
+			transform: translateY(22px);
+			transition: opacity 0.62s cubic-bezier(0.22, 0.8, 0.36, 1), transform 0.62s cubic-bezier(0.22, 0.8, 0.36, 1);
+		}
+
+		.reveal.is-visible {
+			opacity: 1;
+			transform: none;
+		}
+
+		.delay-1 { transition-delay: 0.08s; }
+		.delay-2 { transition-delay: 0.18s; }
+		.delay-3 { transition-delay: 0.28s; }
+
+		@keyframes fall {
+			0% {
+				transform: translate3d(0, 0, 0) rotate(0deg);
+			}
+			100% {
+				transform: translate3d(35px, 115vh, 0) rotate(300deg);
+			}
+		}
+
+		@keyframes floaty {
+			0%,
+			100% {
+				transform: translateY(0);
+			}
+			50% {
+				transform: translateY(-5px);
+			}
+		}
+
+		@keyframes bloomPetal {
+			0% {
+				opacity: 0;
+				transform: translate(-50%, -50%) rotate(calc(var(--i) * 72deg)) translateY(-20%) scale(0.15);
+			}
+			70% {
+				opacity: 1;
+				transform: translate(-50%, -50%) rotate(calc(var(--i) * 72deg)) translateY(-50%) scale(1.08);
+			}
+			100% {
+				opacity: 1;
+				transform: translate(-50%, -50%) rotate(calc(var(--i) * 72deg)) translateY(-49%) scale(1);
+			}
+		}
+
+		@keyframes corePop {
+			0% {
+				opacity: 0;
+				transform: translate(-50%, -50%) scale(0.4);
+			}
+			100% {
+				opacity: 1;
+				transform: translate(-50%, -50%) scale(1);
+			}
+		}
+
+		@keyframes sakuraSpin {
+			0% {
+				transform: translate3d(0, 0, 0) rotate(0deg);
+			}
+			100% {
+				transform: translate3d(0, 0, 0) rotate(360deg);
+			}
+		}
+
+		@keyframes clickHereBounce {
+			0%,
+			100% {
+				transform: translateY(0) scale(1);
+			}
+
+			50% {
+				transform: translateY(-5px) scale(1.03);
+			}
+		}
+
+		@keyframes windPetalFall {
+			0% {
+				opacity: 0;
+				transform: translate3d(0, -8vh, 0) rotate(0deg) scale(var(--s, 1));
+			}
+			15% {
+				opacity: 0.95;
+			}
+			100% {
+				opacity: 0;
+				transform: translate3d(var(--drift, 280px), 116vh, 0) rotate(var(--rot, 460deg)) scale(var(--s, 1));
+			}
+		}
+
+		@keyframes introWindFade {
+			0% {
+				opacity: 1;
+			}
+			70% {
+				opacity: 1;
+			}
+			100% {
+				opacity: 0;
+			}
+		}
+
+		@keyframes sakuraTapInvite {
+			0%,
+			100% {
+				transform: translate3d(0, 0, 0) scale(1);
+				filter: drop-shadow(0 0 0 rgba(235, 111, 159, 0));
+			}
+			50% {
+				transform: translate3d(0, -4px, 0) scale(1.03);
+				filter: drop-shadow(0 0 18px rgba(235, 111, 159, 0.62));
+			}
+		}
+
+		.music-controls {
+			position: fixed;
+			bottom: 22px;
+			right: 22px;
+			z-index: 1000;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			gap: 8px;
+		}
+
+		.volume-panel {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			gap: 6px;
+			padding: 10px 8px;
+			border-radius: 999px;
+			background: rgba(255, 255, 255, 0.85);
+			border: 1px solid var(--line);
+			backdrop-filter: blur(10px);
+			-webkit-backdrop-filter: blur(10px);
+			box-shadow: 0 8px 20px rgba(196, 83, 119, 0.18);
+			opacity: 0;
+			transform: translateY(10px) scale(0.92);
+			pointer-events: none;
+			transition: opacity 0.25s ease, transform 0.25s ease;
+		}
+
+		.music-controls:hover .volume-panel,
+		.music-controls:focus-within .volume-panel {
+			opacity: 1;
+			transform: translateY(0) scale(1);
+			pointer-events: auto;
+		}
+
+		.volume-icon {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			color: var(--text-soft);
+		}
+
+		.volume-slider {
+			writing-mode: vertical-lr;
+			direction: rtl;
+			width: 22px;
+			height: 76px;
+			accent-color: var(--primary-strong);
+			padding: 0;
+			margin: 0;
+		}
+
+		.music-toggle-btn {
+			width: 44px;
+			height: 44px;
+			border-radius: 50%;
+			background: rgba(255, 255, 255, 0.75);
+			border: 1px solid var(--line);
+			backdrop-filter: blur(10px);
+			-webkit-backdrop-filter: blur(10px);
+			box-shadow: 0 8px 20px rgba(196, 83, 119, 0.18);
+			cursor: pointer;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			color: var(--primary-strong);
+			overflow: visible;
+			transition: background 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+			animation: floaty 4s ease-in-out infinite;
+			animation-delay: 0.6s;
+		}
+
+		.music-toggle-btn:hover {
+			background: rgba(253, 150, 184, 0.3);
+			box-shadow: 0 10px 24px rgba(196, 83, 119, 0.28);
+			transform: scale(1.1);
+		}
+
+		.music-toggle-btn.is-muted {
+			color: var(--text-soft);
+			background: rgba(255, 255, 255, 0.55);
+		}
+
+		.music-toggle-btn svg {
+			width: 20px;
+			height: 20px;
+			flex-shrink: 0;
+		}
+
+		.music-visualizer {
+			position: absolute;
+			left: 50%;
+			top: -13px;
+			transform: translateX(-50%);
+			display: inline-flex;
+			align-items: flex-end;
+			gap: 2px;
+			height: 10px;
+			padding: 2px 5px;
+			border-radius: 999px;
+			background: rgba(255, 255, 255, 0.72);
+			border: 1px solid rgba(201, 127, 148, 0.28);
+			opacity: 0;
+			transition: opacity 0.25s ease;
+		}
+
+		.music-visualizer span {
+			width: 2px;
+			height: 100%;
+			border-radius: 999px;
+			background: #c45377;
+			transform-origin: bottom;
+			animation: equalizerPulse 0.9s ease-in-out infinite;
+		}
+
+		.music-visualizer span:nth-child(2) { animation-delay: 0.15s; }
+		.music-visualizer span:nth-child(3) { animation-delay: 0.3s; }
+		.music-visualizer span:nth-child(4) { animation-delay: 0.45s; }
+
+		.music-toggle-btn.is-playing .music-visualizer {
+			opacity: 1;
+		}
+
+		@keyframes equalizerPulse {
+			0%,
+			100% {
+				transform: scaleY(0.35);
+			}
+			50% {
+				transform: scaleY(1);
+			}
+		}
+
+		/* --- Dorm Logo Button --- */
+		.dorm-logo-btn {
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			background: none;
+			border: none;
+			padding: 1px;
+			cursor: pointer;
+			vertical-align: middle;
+			margin-left: 3px;
+			border-radius: 50%;
+			transition: transform 0.38s cubic-bezier(0.22, 0.8, 0.36, 1), filter 0.3s;
+			filter: drop-shadow(0 0 3px rgba(253, 150, 184, 0));
+		}
+
+		.dorm-logo-btn img {
+			width: 26px;
+			height: 26px;
+			object-fit: contain;
+			display: block;
+		}
+
+		.dorm-logo-btn:hover,
+		.dorm-logo-btn:focus-visible {
+			transform: rotate(18deg) scale(1.28);
+			filter: drop-shadow(0 0 6px rgba(253, 150, 184, 0.85));
+			outline: none;
+			transition: transform 0.38s cubic-bezier(0.22, 0.8, 0.36, 1), filter 0.3s;
+		}
+
+		.dorm-logo-btn:active {
+			transform: rotate(30deg) scale(1.1);
+		}
+
+		/* --- Petal Burst Overlay --- */
+		.petal-burst-overlay {
+			position: fixed;
+			inset: 0;
+			pointer-events: none;
+			z-index: 99999;
+			overflow: hidden;
+		}
+
+		.burst-petal {
+			position: absolute;
+			opacity: 0;
+			animation: burstPetalLife var(--dur, 3.8s) linear var(--delay, 0s) forwards;
+		}
+
+		.burst-petal svg {
+			animation: burstPetalFlutter var(--flutter, 1.05s) ease-in-out infinite alternate;
+			transform-origin: 50% 40%;
+		}
+
+		@keyframes burstPetalLife {
+			0% {
+				opacity: 0;
+				transform: translate3d(0, -20vh, 0) rotate(var(--rot0, 0deg)) scale(0.32);
+			}
+			8% {
+				opacity: 0.97;
+				transform: translate3d(calc(var(--sway, 0px) * 0.2), -4vh, 0) rotate(calc(var(--rot0, 0deg) + 25deg)) scale(1);
+			}
+			70% {
+				opacity: 0.95;
+				transform: translate3d(calc(var(--drift, 0px) + var(--sway, 0px)), 70vh, 0) rotate(var(--rot1, 220deg)) scale(0.95);
+			}
+			100% {
+				opacity: 0;
+				transform: translate3d(var(--drift, 0px), 112vh, 0) rotate(var(--rot2, 320deg)) scale(0.72);
+			}
+		}
+
+		@keyframes burstPetalFlutter {
+			0% {
+				transform: rotate(-10deg) scaleY(0.96);
+			}
+			100% {
+				transform: rotate(11deg) scaleY(1.06);
+			}
+		}
+
+		@keyframes tapShake {
+			0% { transform: translateX(0) rotate(0deg); }
+			20% { transform: translateX(-3px) rotate(-1.2deg); }
+			40% { transform: translateX(4px) rotate(1.4deg); }
+			60% { transform: translateX(-3px) rotate(-1deg); }
+			80% { transform: translateX(3px) rotate(0.8deg); }
+			100% { transform: translateX(0) rotate(0deg); }
+		}
+
+		.tap-sakura-burst {
+			position: fixed;
+			inset: 0;
+			pointer-events: none;
+			z-index: 99998;
+			overflow: hidden;
+		}
+
+		.tap-sakura {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 11px;
+			height: 15px;
+			border-radius: 62% 40% 64% 38%;
+			background: linear-gradient(180deg, #ffd6e8 0%, #f393b7 100%);
+			opacity: 0;
+			filter: drop-shadow(0 2px 3px rgba(175, 70, 110, 0.22));
+			transform: translate3d(var(--x, 50vw), var(--y, 40vh), 0) rotate(0deg) scale(var(--s, 1));
+			animation: tapSakuraFall var(--dur, 1.7s) ease-out var(--delay, 0s) forwards;
+		}
+
+		.tap-sakura.alt {
+			background: linear-gradient(180deg, #fff0f6 0%, #f5afca 100%);
+		}
+
+		@keyframes tapSakuraFall {
+			0% {
+				opacity: 0;
+				transform: translate3d(var(--x), var(--y), 0) rotate(var(--r0, 0deg)) scale(var(--s));
+			}
+			16% {
+				opacity: 1;
+			}
+			100% {
+				opacity: 0;
+				transform: translate3d(calc(var(--x) + var(--dx, 0px)), calc(var(--y) + var(--dy, -150px)), 0) rotate(var(--r1, 280deg)) scale(calc(var(--s) * 0.92));
+			}
+		}
+
+		@media (prefers-reduced-motion: reduce) {
+			html {
+				scroll-behavior: auto;
+			}
+
+			*,
+			*::before,
+			*::after {
+				animation-duration: 0.01ms !important;
+				animation-iteration-count: 1 !important;
+				transition-duration: 0.01ms !important;
+			}
+		}
+
+		@media (max-width: 980px) {
+			.hero,
+			.media-grid,
+			.history,
+			.triple,
+			.foot-grid {
+				grid-template-columns: 1fr;
+			}
+
+			.hero-layout {
+				grid-template-columns: 1fr;
+			}
+
+			.id-card {
+				justify-self: center;
+				width: 100%;
+			}
+
+			.hero-photo {
+				width: 100%;
+				margin: 0 auto;
+				aspect-ratio: auto;
+				max-height: none;
+				object-fit: contain;
+				max-width: 280px;
+			}
+
+			.hero-meta-item {
+				font-size: 0.86rem;
+			}
+
+			.info-grid {
+				grid-template-columns: repeat(2, minmax(0, 1fr));
+			}
+
+			.container {
+				width: min(880px, 94vw);
+			}
+
+			.commu-masthead {
+				grid-template-columns: 128px 1fr;
+				gap: 14px;
+			}
+
+			.brand-logo,
+			.brand-fallback {
+				width: 120px;
+				height: 120px;
+			}
+		}
+
+		@media (max-width: 560px) {
+			.intro-stage {
+				gap: 20px;
+			}
+
+			.hero-main,
+			.section,
+			.id-card {
+				padding: 18px;
+			}
+
+			.section h2 {
+				font-size: 1.14rem;
+				padding-top: 6px;
+				padding-right: 12px;
+				padding-bottom: 10px;
+				padding-left: 14px;
+			}
+
+			.info-grid,
+			.id-grid {
+				grid-template-columns: 1fr;
+			}
+
+			.commu-masthead {
+				grid-template-columns: 86px 1fr;
+				gap: 10px;
+				padding: 12px;
+				border-radius: 16px;
+			}
+
+			.brand-logo,
+			.brand-fallback {
+				width: 82px;
+				height: 82px;
+			}
+
+			.brand-jp {
+				font-size: 1.1rem;
+			}
+
+			.brand-title {
+				font-size: 0.95rem;
+			}
+
+			.brand-divider::before {
+				right: 26px;
+			}
+
+			.brand-divider::after {
+				right: 2px;
+			}
+
+			.container {
+				margin-top: 24px;
+			}
+		}
+	</style>
+</head>
+<body>
+	<div class="intro-overlay" id="intro-overlay" role="dialog" aria-modal="true" aria-label="หน้าต้อนรับ">
+		<div class="intro-stage">
+			<div class="sakura-loader" id="sakura-loader" role="button" tabindex="0" aria-label="กดซากุระเพื่อเข้าสู่หน้าหลัก">
+				<span class="sakura-petal" style="--i: 0"></span>
+				<span class="sakura-petal" style="--i: 1"></span>
+				<span class="sakura-petal" style="--i: 2"></span>
+				<span class="sakura-petal" style="--i: 3"></span>
+				<span class="sakura-petal" style="--i: 4"></span>
+				<span class="sakura-core"></span>
+			</div>
+			<p class="intro-caption" id="intro-caption" aria-hidden="true">Click Sakura!</p>
+		</div>
+		<div class="wind-petal-burst" id="wind-petal-burst" aria-hidden="true"></div>
+	</div>
+	<audio id="bgm-sakura" src="./music/sakura.mp3" preload="auto" loop></audio>
+
+	<div class="music-controls" id="music-controls">
+		<div class="volume-panel" role="group" aria-label="ปรับระดับเสียง">
+			<span class="volume-icon" aria-hidden="true">
+				<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+					<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+					<path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
+					<path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
+				</svg>
+			</span>
+			<input type="range" class="volume-slider" id="volume-slider" min="0" max="1" step="0.05" value="0.3" aria-label="ระดับเสียง" orient="vertical" />
+			<span class="volume-icon" aria-hidden="true">
+				<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+					<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+				</svg>
+			</span>
+		</div>
+		<button class="music-toggle-btn" id="music-toggle-btn" aria-label="ปิดเสียงเพลง">
+			<span class="music-visualizer" aria-hidden="true">
+				<span></span>
+				<span></span>
+				<span></span>
+				<span></span>
+			</span>
+			<svg id="icon-sound-on" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+				<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+				<path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
+				<path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
+			</svg>
+			<svg id="icon-sound-off" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="display:none">
+				<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+				<line x1="23" y1="9" x2="17" y2="15"/>
+				<line x1="17" y1="9" x2="23" y2="15"/>
+			</svg>
+		</button>
+	</div>
+
+	<a href="#content" class="skip-link">ข้ามไปเนื้อหาหลัก</a>
+
+	<div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-label="รูปภาพขนาดเต็ม">
+		<button class="lightbox-close" id="lightbox-close" aria-label="ปิด">&#215;</button>
+		<img id="lightbox-img" src="" alt="" />
+	</div>
+
+	<div class="petals" aria-hidden="true">
+		<span class="petal" style="left: 5%; animation-duration: 13s; animation-delay: -2s;"></span>
+		<span class="petal" style="left: 14%; animation-duration: 17s; animation-delay: -8s;"></span>
+		<span class="petal" style="left: 26%; animation-duration: 12s; animation-delay: -4s;"></span>
+		<span class="petal" style="left: 33%; animation-duration: 18s; animation-delay: -1s;"></span>
+		<span class="petal" style="left: 47%; animation-duration: 14s; animation-delay: -6s;"></span>
+		<span class="petal" style="left: 59%; animation-duration: 15s; animation-delay: -10s;"></span>
+		<span class="petal" style="left: 68%; animation-duration: 19s; animation-delay: -3s;"></span>
+		<span class="petal" style="left: 78%; animation-duration: 12s; animation-delay: -9s;"></span>
+		<span class="petal" style="left: 88%; animation-duration: 16s; animation-delay: -5s;"></span>
+		<span class="petal" style="left: 95%; animation-duration: 14s; animation-delay: -7s;"></span>
+	</div>
+
+	<main class="container" id="content" tabindex="-1">
+		<header class="commu-masthead" id="commu-brand" aria-label="โลโก้คอมมู">
+			<img class="brand-logo" id="brand-logo" src="./image/Mahoushiki_Logo.png" alt="Mahoushiki Logo" loading="lazy" />
+			<span class="brand-fallback" aria-hidden="true">MG</span>
+			<div class="brand-copy">
+				<h2 class="brand-jp">魔法四季学園</h2>
+				<p class="brand-title">Mahoushiki Gakuen</p>
+				<div class="brand-divider" aria-hidden="true"></div>
+			</div>
+		</header>
+
+		<section class="hero" id="overview">
+			<article class="card hero-main reveal">
+				<div class="hero-layout">
+					<div class="hero-copy">
+						<p class="kicker">ใบสมัครตัวละครนักเรียน</p>
+						<h1>ชิโนโนเมะ ริน</h1>
+						<p class="name-jp">東雲 凛 · Shinonome Rin</p>
+						<p>
+						ยัตต้า!
+						</p>
+						<div class="hero-meta" aria-label="ข้อมูลเพิ่มเติม">
+							<p class="hero-meta-item"><small>รูมเมท</small>รอประกาศ/เลือกเอง</p>
+							<p class="hero-meta-item"><small>ชมรม</small>-</p>
+						</div>
+					</div>
+					<div class="hero-photo-wrap">
+						<img class="hero-photo sakura-tap-target" src="./image/RinPhotoIDMSG.png" alt="ชิโนโนเมะ ริน" loading="lazy" />
+					</div>
+				</div>
+			</article>
+
+			<aside class="card id-card reveal delay-1" aria-label="บัตรนักเรียน">
+				<div class="id-head">
+					<h2>บัตรนักเรียน</h2>
+					<span class="tag">ID 00000</span>
+				</div>
+				<div class="id-flip-wrap">
+					<div class="id-flip-card" tabindex="0" aria-label="บัตรนักเรียน พลิกดูด้านหลังได้เมื่อวางเมาส์หรือโฟกัส">
+						<div class="id-face front">
+							<img class="sakura-tap-target" src="./image/photoID_card.png" alt="บัตรนักเรียนด้านหน้า" loading="lazy" />
+						</div>
+						<div class="id-face back">
+							<img class="sakura-tap-target" src="./image/idcard_back.jpg" alt="บัตรนักเรียนด้านหลัง" loading="lazy" />
+						</div>
+					</div>
+				</div>
+				<p class="id-flip-hint">วางเมาส์บนบัตรเพื่อพลิกดูด้านหลัง</p>
+				<div class="id-grid">
+					<div class="id-item"><small>ชั้นปี</small>ไคกะ</div>
+					<div class="id-item"><small>ห้อง</small>รอประกาศ</div>
+					<div class="id-item"><small>หอพัก</small><span style="display:inline-flex;align-items:center;gap:3px;">ฤดูใบไม้ผลิ<button class="dorm-logo-btn" id="dorm-logo-btn" title="✿ คลิกเพื่อปล่อยกลีบดอก" aria-label="ตราหอพักฤดูใบไม้ผลิ — คลิกเพื่อปล่อยกลีบดอก"><img src="./image/โลโก้หอฤดูใบไม้ผลิ.png" alt="ตราหอพักฤดูใบไม้ผลิ" /></button></span></div>
+					<div class="id-item"><small>เพศ</small>หญิง</div>
+				</div>
+			</aside>
+		</section>
+
+		<section class="card section reveal delay-1" id="visual">
+			<h2>Character Visual</h2>
+			<div class="media-grid">
+				<article class="media-card">
+					<h3>Character Sheet</h3>
+					<img src="./image/sheet1.jpg" alt="Character Sheet ของชิโนโนเมะ ริน" loading="lazy" />
+				</article>
+				<article class="media-card">
+					<h3>สื่อเวทย์ - ออกแบบโดยคุณ Reverie Siver (สวยมากเลยเนอะ สุดยอดTT)</h3>
+					<img src="./image/wand1.jpg" alt="สื่อเวทย์ wand1 ของชิโนโนเมะ ริน" loading="lazy" />
+				</article>
+			</div>
+		</section>
+
+		<section class="card section reveal delay-1" id="profile">
+			<h2>ข้อมูลส่วนตัวนักเรียน</h2>
+			<div class="info-grid">
+				<div class="info-item"><span class="label">นามสกุล-ชื่อ (ญี่ปุ่น)</span>東雲 凛</div>
+				<div class="info-item"><span class="label">นามสกุล-ชื่อ (ไทย)</span>ชิโนโนเมะ ริน</div>
+				<div class="info-item"><span class="label">อายุ</span>17</div>
+				<div class="info-item"><span class="label">เพศ</span>หญิง</div>
+				<div class="info-item"><span class="label">วันเกิด</span>07/20</div>
+				<div class="info-item"><span class="label">หมู่เลือด</span>AB</div>
+				<div class="info-item"><span class="label">สัญชาติ / เชื้อชาติ</span>ญี่ปุ่น / ญี่ปุ่น</div>
+				<div class="info-item"><span class="label">น้ำหนัก / ส่วนสูง</span>48 / 160</div>
+			</div>
+			<div class="triple">
+				<article class="panel">
+					<h3>ความผิดปกติ</h3>
+					<p>มีหูหางสัตว์งอกออกมาจากร่างกาย บางครั้งก็มีต้นอ่อนงอกขึ้นบนหัวด้วย?!</p>
+				</article>
+				<article class="panel">
+					<h3>โรคประจำตัว</h3>
+					<p>ไม่มีค่ะ! แข็งแรงสดใส</p>
+				</article>
+				<article class="panel">
+					<h3>สถานะการศึกษา</h3>
+					<p>สามารถอ่านออก เขียนได้เหมือนคนปกติแล้วค่ะ</p>
+				</article>
+			</div>
+		</section>
+
+		<section class="card section reveal delay-2" id="history">
+			<h2>ประวัติ</h2>
+			<div class="history">
+				<article>
+					<h3>ครอบครัว</h3>
+					<p>
+						ชิโนโนเมะ ริน เกิดในครอบครัวเกษตรกรธรรมดาในหมู่บ้านเล็ก ๆ เชิงเขา จังหวัดโคชิ พ่อแม่ไม่มีความรู้เรื่องเวทมนตร์
+						และใช้ชีวิตเรียบง่ายจากการปลูกผักขายเลี้ยงชีพ เมื่อเธอแสดงความผิดปกติตั้งแต่แรกเกิดและมีพลังเหนือธรรมชาติในเวลาต่อมา
+						ความสัมพันธ์ในครอบครัวจึงเต็มไปด้วยความห่างเหินมากกว่าความรัก
+					</p>
+				</article>
+				<article>
+					<h3>ก่อนเข้าโรงเรียน</h3>
+					<p>
+						รายได้ไม่แน่นอนตามผลผลิตทางการเกษตร ถูกเลี้ยงดูอย่างจำกัดอิสรภาพและขาดปัจจัยพื้นฐานหลายอย่าง
+						อาหารไม่เพียงพอ เสื้อผ้าเก่า และขาดโอกาสทางสังคม จนกระทั่งได้รับจดหมายเชิญเข้าเรียนที่โรงเรียนมัธยมปลายมาโฮชิกิ
+						ในช่วงวัยที่อายุครบ 15 ปี และได้เดินทางไปที่ชานชาลาในทันที
+					</p>
+				</article>
+				<article>
+					<h3>หลังเข้าโรงเรียน</h3>
+					<p>
+						หลังเดินทางมาถึงและเข้าเรียนที่โรงเรียนมัธยมปลายมาโฮชิกิ เธอต้องเริ่มต้นจากศูนย์
+						อ่านหนังสือไม่ออก เขียนไม่ได้ และไม่เคยผ่านการศึกษาในระบบ ทำให้ตามบทเรียนไม่ทันเพื่อนร่วมชั้น
+						แม้จะลำบากและถูกมองว่าหัวช้า จนต้องเรียนซ้ำชั้น 1 ปี แต่เธอก็ไม่เคยยอมแพ้
+					</p>
+				</article>
+			</div>
+		</section>
+
+		<section class="card section reveal delay-2" id="magic">
+			<h2>ลักษณะเวทมนตร์</h2>
+			<div class="spirit-box">
+				<span class="spirit-pill">ฤดูใบไม้ผลิ</span>
+				<span class="spirit-pill">พืชพันธุ์</span>
+			</div>
+			<div class="magic">
+				<article>
+					<h3>เร่งงอกพืช</h3>
+					<p>
+						กระตุ้นเมล็ดให้แตกหน่อฉับพลันจนดันผ่านดินหรือพื้นผิวไม่แข็งมาก สร้างพุ่มไม้ เถาวัลย์ หรือรากพืชในพื้นที่กำหนด
+						ใช้สร้างสิ่งกีดขวาง ปิดทางเดิน หรือทำกำบังชั่วคราว พืชจากเวทจะคงอยู่ช่วงเวลาหนึ่งก่อนเหี่ยวเฉา
+					</p>
+				</article>
+				<article>
+					<h3>ควบคุมเถาวัลย์</h3>
+					<p>
+						เรียกเถาวัลย์และรากให้เคลื่อนไหวตามเจตนา เพื่อพันธนาการ จับยึด แขวนสิ่งของ หรือช่วยดึงตัวผู้ใช้
+						เหมาะกับการคุมพื้นที่และจำกัดการเคลื่อนไหวมากกว่าการโจมตีโดยตรง เพราะโครงสร้างยังเปราะบางและขาดได้
+					</p>
+				</article>
+				<article>
+					<h3>รับรู้ผ่านรากพืช</h3>
+					<p>
+						ส่งพลังเวทลงสู่พื้นผ่านเมล็ดหรือรากเพื่อรับแรงสั่นสะเทือนและการเคลื่อนไหวใกล้เคียง
+						ใช้ตรวจจับสิ่งที่อยู่นอกสายตา รวมถึงค้นหาแหล่งน้ำหรือพื้นที่เหมาะปลูก ระยะรับรู้ขึ้นอยู่กับความชำนาญและสภาพพื้นดิน
+					</p>
+				</article>
+			</div>
+		</section>
+
+		<section class="card section reveal delay-3" id="spirit-choice">
+			<h2>ตำแหน่งสภานักเรียน</h2>
+				<article class="feature-box spirit-feature">
+				<p class="position-pill">หัวหน้าหอฤดูใบไม้ผลิ</p>
+				<h3>เหตุผลที่ถูกจิตวิญญาณแห่งธรรมชาติเลือก</h3>
+					<p class="spirit-lead">
+					ชิโนโนเมะ ริน เปรียบเสมือนผู้ที่สะท้อนการเติบโตที่ยังไม่สมบูรณ์แต่กำลังเบ่งบานทีละเล็กทีละน้อย อันเป็นหัวใจของฤดูใบไม้ผลิ
+				</p>
+					<div class="spirit-story">
+						<p>
+							แม้ภายนอกเธอจะดูเป็นคนซุกซน เข้าใจอะไรช้ากว่าคนอื่นเล็กน้อย และมักเผลอทำสิ่งที่ดูไม่เข้าที่เข้าทางอยู่บ่อยครั้ง
+							รินชอบเรียนรู้เรื่องเล็ก ๆ น้อย ๆ รอบตัว ตั้งแต่เรื่องที่คนอื่นมองข้ามไปจนถึงเรื่องที่ตัวเองยังไม่เข้าใจ และถึงจะพลาด
+							เธอก็ยังยิ้มออกมาอย่างเริงร่า แค่ใช้เวลานิดหน่อย แล้วก็จะค่อย ๆ เก็บมันไปคิด ไปปรับ แล้วเดินต่อ
+						</p>
+						<p>
+							อาจไม่ใช่ดอกไม้ที่บานเต็มที่ตั้งแต่แรก แต่เป็นเหมือนต้นอ่อนเล็ก ๆ ที่ยังเติบโตอยู่ทุกวัน
+						</p>
+						<p>
+							แม้จะเป็นดอกซากุระที่อาจยังไม่เป็นระเบียบเรียบร้อยนัก กลีบบางส่วนอาจร่วงหล่นก่อนเวลา
+							แต่กลับทำให้ผู้คนรอบตัวรู้สึกถึงความสดใหม่และอบอุ่นได้อย่างเป็นธรรมชาติ
+						</p>
+						<p>
+							ในขณะเดียวกัน เธอไม่ใช่เพียงเด็กที่ปล่อยตัวตามสัญชาตญาณ แต่เป็นคนที่สามารถคิด วางแผน และรับผิดชอบได้เมื่อถึงเวลา
+							เพียงแค่เลือกจะแสดงออกในแบบที่อ่อนโยนและไม่กดดันผู้อื่น ความผูกพันที่เธอมีต่อผู้คน การคอยวนเวียนอยู่ใกล้ ๆ
+							การเป็นทั้งพลังงานและพื้นที่ปลอดภัยในเวลาเดียวกัน
+						</p>
+						<p>
+							ด้วยเหตุนี้ จิตวิญญาณแห่งธรรมชาติจึงเลือกเธอที่พร้อมที่จะเติบโตไปด้วยกันกับผู้อื่น
+						</p>
+					</div>
+			</article>
+		</section>
+
+		<section class="card section reveal delay-3" id="traits">
+			<h2>ลักษณะนิสัย</h2>
+			<div class="trait-list">
+				<p class="trait">เป็นคนอ๊อง ๆ เล็กน้อย ไม่ได้เข้าใจคำพูดหรือความหมายแฝงของคนอื่นได้ทันที บางครั้งเลยเผลอทำตัวเสียมารยาทไปโดยไม่ตั้งใจ แต่ไม่ใช่เด็กที่พูดแล้วไม่รู้ความอะไร เพียงแค่ต้องใช้เวลาทำความเข้าใจมากกว่าคนอื่นนิดหน่อยเท่านั้น
+</p>
+				<p class="trait">ขี้เล่นและซุกซน พลังงานเยอะ มีความอยากรู้อยากเห็นไปเสียทุกเรื่อง การได้เรียนรู้สิ่งใหม่ ๆ คือความสนุกอย่างหนึ่งในชีวิต
+</p>
+				<p class="trait">ค่อนข้างขี้อ้อนกับคนสนิท หากผูกพันแล้วจะชอบตามติดหรือแวะเวียนมาอยู่ใกล้ ๆ เสมอ เพราะในใจมองว่าคนคนนั้นคือพื้นที่ปลอดภัย อยู่ด้วยแล้วสบายใจ
+</p>
+				<p class="trait">นอนเยอะ หลับทีหลับเป็นตาย ใครปลุกไม่ตื่น ต่อจะให้ไฟไหม้ ฟ้าผ่า ฝนตก น้ำท่วม แต่ก็จะไม่ตื่นจนกว่าจะครบเวลานอน แต่พอตื่นขึ้นมาก็พลังงานล้น ไม่มีงัวเงีย!
+</p>
+				<p class="trait">จริง ๆ แล้วเป็นคนฉลาดเรียนรู้ได้ไว ชอบวางแผนเล็ก ๆ น้อย ๆ ทำหน้าใส ๆ แต่เบื้องหลังคือคนต้นเรื่อง เวลาทำผิดก็จะทำตาแป๋วใส่ทันที</p>
+			</div>
+			<div class="triple">
+				<article class="panel">
+					<h3>สิ่งที่ชอบ</h3>
+					<ul class="panel-list">
+						<li>การเรียนรู้สิ่งใหม่ ๆ</li>
+						<li>ของชิ้นเล็กน่ารัก</li>
+						<li>ที่แคบอบอุ่น</li>
+						<li>เสียงหัวเราะและบรรยากาศสบาย ๆ</li>
+					</ul>
+				</article>
+				<article class="panel">
+					<h3>สิ่งที่ไม่ชอบ</h3>
+					<ul class="panel-list">
+						<li>การถูกเร่งให้เข้าใจหรือให้ตอบทันที</li>
+						<li>การถูกเมินเฉยแบบไร้เหตุผล</li>
+						<li>พื้นที่โล่งกว้างไม่มีที่ให้หลบซ่อน</li>
+					</ul>
+				</article>
+				<article class="panel">
+					<h3>สิ่งที่กลัว</h3>
+					<ul class="panel-list">
+						<li>ความมืด</li>
+						<li>การทำผิดพลาดจนคนอื่นไม่พอใจ</li>
+						<li>การถูกทิ้งให้อยู่คนเดียวโดยไม่รู้ตัว</li>
+					</ul>
+				</article>
+			</div>
+		</section>
+
+		<section class="card section reveal delay-3" id="extra">
+			<h2>อื่น ๆ</h2>
+			<div class="foot-grid">
+				<article class="small-card">
+					<h3>แนวทางการเล่น</h3>
+					<p>โรล &gt; เวิ่น &gt; วาด</p>
+					<p>ตอบแชทค่อนข้างช้า แต่จะพยายามตอบตลอดนะคะ</p>
+				</article>
+				<article class="small-card">
+					<h3>Contact</h3>
+					<p>แอคเคาท์ตัวละคร: @rin-msg.bsky.social</p>
+					<a class="social-btn" href="https://bsky.app/profile/rin-msg.bsky.social" target="_blank" rel="noopener noreferrer">Click to View account</a>
+					<p>ช่องทางติดต่อ: DM ตัวละคร</p>
+				
+				</article>
+			</div>
+		</section>
+
+		<div class="spring-showcase reveal delay-3" aria-label="ตราฤดูใบไม้ผลิ">
+			<img class="spring-emblem sakura-tap-target" src="./image/spring.png" alt="ตราฤดูใบไม้ผลิ" loading="lazy" />
+		</div>
+	</main>
+
+	<script>
+		// Lightbox
+		const introOverlay = document.getElementById('intro-overlay');
+		const sakuraLoader = document.getElementById('sakura-loader');
+		const introCaption = document.getElementById('intro-caption');
+		const windPetalBurst = document.getElementById('wind-petal-burst');
+		const bgmSakura = document.getElementById('bgm-sakura');
+		const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+		const lightbox = document.getElementById('lightbox');
+		const lightboxImg = document.getElementById('lightbox-img');
+		const lightboxClose = document.getElementById('lightbox-close');
+		const brandLogo = document.getElementById('brand-logo');
+		const commuBrand = document.getElementById('commu-brand');
+		const petalsLayer = document.querySelector('.petals');
+		const heroPhotoWrap = document.querySelector('.hero-photo-wrap');
+		const heroPhoto = document.querySelector('.hero-photo');
+		const sakuraTapTargets = document.querySelectorAll('.sakura-tap-target');
+		const musicBtn = document.getElementById('music-toggle-btn');
+		const iconSoundOn = document.getElementById('icon-sound-on');
+		const iconSoundOff = document.getElementById('icon-sound-off');
+		const volumeSlider = document.getElementById('volume-slider');
+		let isMuted = false;
+
+		function updateMusicButtonUi() {
+			const muted = bgmSakura.muted;
+			const isPlaying = !bgmSakura.paused && !muted;
+			iconSoundOn.style.display = muted ? 'none' : '';
+			iconSoundOff.style.display = muted ? '' : 'none';
+			musicBtn.classList.toggle('is-muted', muted);
+			musicBtn.classList.toggle('is-playing', isPlaying);
+			musicBtn.setAttribute('aria-label', muted ? 'เปิดเสียงเพลง' : 'ปิดเสียงเพลง');
+		}
+
+		musicBtn.addEventListener('click', () => {
+			isMuted = !isMuted;
+			bgmSakura.muted = isMuted;
+			if (!isMuted && introLeaving) {
+				tryPlayBgm();
+			}
+			updateMusicButtonUi();
+		});
+
+		let introLeaving = false;
+		let introCanEnter = false;
+
+		volumeSlider.addEventListener('input', () => {
+			const vol = parseFloat(volumeSlider.value);
+			bgmSakura.volume = vol;
+			if (isMuted && vol > 0) {
+				isMuted = false;
+				bgmSakura.muted = false;
+				updateMusicButtonUi();
+			}
+		});
+
+		function tryPlayBgm() {
+			if (!bgmSakura) return;
+			bgmSakura.volume = parseFloat(volumeSlider.value);
+			const playAttempt = bgmSakura.play();
+			if (playAttempt && typeof playAttempt.catch === 'function') {
+				playAttempt
+					.then(() => {
+						updateMusicButtonUi();
+					})
+					.catch(() => {
+						// Autoplay may be blocked until first user interaction.
+						updateMusicButtonUi();
+					});
+				return;
+			}
+			updateMusicButtonUi();
+		}
+
+		['play', 'pause', 'volumechange', 'ended'].forEach((eventName) => {
+			bgmSakura.addEventListener(eventName, updateMusicButtonUi);
+		});
+		updateMusicButtonUi();
+
+		function randomIn(min, max) {
+			return Math.random() * (max - min) + min;
+		}
+
+		function spawnTapSakura(targetRect) {
+			if (reduceMotion) return;
+			const overlay = document.createElement('div');
+			overlay.className = 'tap-sakura-burst';
+			const total = window.innerWidth < 640 ? 20 : 28;
+			const topY = targetRect.top + 2;
+
+			for (let i = 0; i < total; i += 1) {
+				const petal = document.createElement('span');
+				petal.className = i % 3 === 0 ? 'tap-sakura alt' : 'tap-sakura';
+				petal.style.setProperty('--x', `${(targetRect.left + randomIn(6, Math.max(8, targetRect.width - 6))).toFixed(1)}px`);
+				petal.style.setProperty('--y', `${(topY + randomIn(-4, 8)).toFixed(1)}px`);
+				petal.style.setProperty('--dx', `${randomIn(-95, 95).toFixed(1)}px`);
+				petal.style.setProperty('--dy', `${randomIn(-230, -120).toFixed(1)}px`);
+				petal.style.setProperty('--s', `${randomIn(0.7, 1.35).toFixed(2)}`);
+				petal.style.setProperty('--dur', `${randomIn(1.2, 2.1).toFixed(2)}s`);
+				petal.style.setProperty('--delay', `${randomIn(0, 0.25).toFixed(2)}s`);
+				petal.style.setProperty('--r0', `${randomIn(-45, 55).toFixed(0)}deg`);
+				petal.style.setProperty('--r1', `${randomIn(220, 520).toFixed(0)}deg`);
+				overlay.appendChild(petal);
+			}
+
+			document.body.appendChild(overlay);
+			window.setTimeout(() => {
+				overlay.remove();
+			}, 2300);
+		}
+
+		function spawnTapSakuraAround(targetRect) {
+			if (reduceMotion) return;
+			const overlay = document.createElement('div');
+			overlay.className = 'tap-sakura-burst';
+			const total = window.innerWidth < 640 ? 24 : 34;
+			const centerX = targetRect.left + (targetRect.width / 2);
+			const centerY = targetRect.top + (targetRect.height * 0.38);
+
+			for (let i = 0; i < total; i += 1) {
+				const petal = document.createElement('span');
+				const side = i % 4;
+				let startX = centerX;
+				let startY = centerY;
+
+				if (side === 0) {
+					startX = targetRect.left + randomIn(6, Math.max(8, targetRect.width - 6));
+					startY = targetRect.top + randomIn(-4, 6);
+				} else if (side === 1) {
+					startX = targetRect.right + randomIn(-6, 4);
+					startY = targetRect.top + randomIn(6, Math.max(8, targetRect.height - 6));
+				} else if (side === 2) {
+					startX = targetRect.left + randomIn(6, Math.max(8, targetRect.width - 6));
+					startY = targetRect.bottom + randomIn(-6, 4);
+				} else {
+					startX = targetRect.left + randomIn(-4, 6);
+					startY = targetRect.top + randomIn(6, Math.max(8, targetRect.height - 6));
+				}
+
+				const angle = Math.atan2(startY - centerY, startX - centerX) + randomIn(-0.35, 0.35);
+				const distance = randomIn(72, 182);
+				petal.className = i % 3 === 0 ? 'tap-sakura alt' : 'tap-sakura';
+				petal.style.setProperty('--x', `${startX.toFixed(1)}px`);
+				petal.style.setProperty('--y', `${startY.toFixed(1)}px`);
+				petal.style.setProperty('--dx', `${(Math.cos(angle) * distance).toFixed(1)}px`);
+				petal.style.setProperty('--dy', `${(Math.sin(angle) * distance).toFixed(1)}px`);
+				petal.style.setProperty('--s', `${randomIn(0.75, 1.4).toFixed(2)}`);
+				petal.style.setProperty('--dur', `${randomIn(1.1, 1.85).toFixed(2)}s`);
+				petal.style.setProperty('--delay', `${randomIn(0, 0.2).toFixed(2)}s`);
+				petal.style.setProperty('--r0', `${randomIn(-55, 55).toFixed(0)}deg`);
+				petal.style.setProperty('--r1', `${randomIn(200, 540).toFixed(0)}deg`);
+				overlay.appendChild(petal);
+			}
+
+			document.body.appendChild(overlay);
+			window.setTimeout(() => {
+				overlay.remove();
+			}, 2100);
+		}
+
+		function triggerTapSakura(target) {
+			target.classList.remove('is-shaking');
+			void target.offsetWidth;
+			target.classList.add('is-shaking');
+			window.setTimeout(() => {
+				target.classList.remove('is-shaking');
+			}, 430);
+
+			const rect = target.getBoundingClientRect();
+			if (target.classList.contains('hero-photo')) {
+				target.classList.add('no-hover-boost');
+				target.blur();
+				target.closest('.hero-photo-wrap')?.classList.add('is-bursting');
+				spawnTapSakuraAround(rect);
+				return;
+			}
+			spawnTapSakura(rect);
+		}
+
+		heroPhotoWrap?.addEventListener('pointerleave', () => {
+			heroPhotoWrap.classList.remove('is-bursting');
+			heroPhoto?.classList.remove('no-hover-boost');
+		});
+
+		if (petalsLayer && !reduceMotion) {
+			let targetX = 0;
+			let targetY = 0;
+			let currentX = 0;
+			let currentY = 0;
+			let parallaxFrame = null;
+			const maxOffsetX = 14;
+			const maxOffsetY = 10;
+
+			const animatePetalParallax = () => {
+				currentX += (targetX - currentX) * 0.1;
+				currentY += (targetY - currentY) * 0.1;
+				petalsLayer.style.transform = `translate3d(${currentX.toFixed(2)}px, ${currentY.toFixed(2)}px, 0)`;
+
+				if (Math.abs(targetX - currentX) > 0.1 || Math.abs(targetY - currentY) > 0.1) {
+					parallaxFrame = window.requestAnimationFrame(animatePetalParallax);
+					return;
+				}
+
+				parallaxFrame = null;
+			};
+
+			const handlePointerMove = (event) => {
+				const normalizedX = (event.clientX / window.innerWidth - 0.5) * 2;
+				const normalizedY = (event.clientY / window.innerHeight - 0.5) * 2;
+				targetX = normalizedX * maxOffsetX;
+				targetY = normalizedY * maxOffsetY;
+
+				if (!parallaxFrame) {
+					parallaxFrame = window.requestAnimationFrame(animatePetalParallax);
+				}
+			};
+
+			const resetParallax = () => {
+				targetX = 0;
+				targetY = 0;
+				if (!parallaxFrame) {
+					parallaxFrame = window.requestAnimationFrame(animatePetalParallax);
+				}
+			};
+
+			window.addEventListener('pointermove', handlePointerMove, { passive: true });
+			document.addEventListener('pointerleave', resetParallax);
+		}
+
+		function spawnWindPetals() {
+			if (!windPetalBurst) return;
+			windPetalBurst.innerHTML = '';
+
+			for (let i = 0; i < 70; i += 1) {
+				const petal = document.createElement('span');
+				petal.className = i % 3 === 0 ? 'wind-petal alt' : 'wind-petal';
+				petal.style.left = `${randomIn(-8, 100)}%`;
+				petal.style.setProperty('--s', `${randomIn(0.72, 1.38).toFixed(2)}`);
+				petal.style.setProperty('--dur', `${randomIn(1.05, 1.95).toFixed(2)}s`);
+				petal.style.setProperty('--delay', `${randomIn(0, 0.32).toFixed(2)}s`);
+				petal.style.setProperty('--drift', `${randomIn(180, 460).toFixed(0)}px`);
+				petal.style.setProperty('--rot', `${randomIn(300, 760).toFixed(0)}deg`);
+				windPetalBurst.appendChild(petal);
+			}
+		}
+
+		if (!reduceMotion) {
+			document.body.style.overflow = 'hidden';
+			window.setTimeout(() => {
+				sakuraLoader.classList.add('spin');
+			}, 2250);
+			window.setTimeout(() => {
+				enableSakuraEnter();
+			}, 3400);
+		} else {
+			window.setTimeout(() => {
+				enableSakuraEnter();
+			}, 80);
+		}
+
+		function enableSakuraEnter() {
+			if (!sakuraLoader) return;
+			introCanEnter = true;
+			sakuraLoader.classList.add('ready-enter');
+			introCaption?.setAttribute('aria-hidden', 'false');
+			sakuraLoader.focus();
+		}
+
+		sakuraLoader?.addEventListener('click', () => {
+			if (!introCanEnter) return;
+			enterSite();
+		});
+
+		sakuraLoader?.addEventListener('keydown', (e) => {
+			if (!introCanEnter) return;
+			if (e.key !== 'Enter' && e.key !== ' ') return;
+			e.preventDefault();
+			enterSite();
+		});
+
+		function enterSite() {
+			if (!introOverlay || introLeaving) return;
+			introLeaving = true;
+			tryPlayBgm();
+
+			if (!reduceMotion) {
+				introOverlay.classList.add('wind-exit');
+				spawnWindPetals();
+				window.setTimeout(() => {
+					introOverlay.classList.add('is-hidden');
+				}, 980);
+				window.setTimeout(() => {
+					document.body.style.overflow = '';
+					introOverlay.remove();
+				}, 1680);
+				return;
+			}
+
+			introOverlay.classList.add('is-hidden');
+			document.body.style.overflow = '';
+			window.setTimeout(() => {
+				introOverlay.remove();
+			}, 140);
+		}
+
+		brandLogo.addEventListener('error', () => {
+			commuBrand.classList.add('has-fallback');
+		});
+
+		// Scroll reveal via IntersectionObserver
+		const revealEls = document.querySelectorAll('.reveal');
+		if (revealEls.length) {
+			const revealObserver = new IntersectionObserver((entries) => {
+				entries.forEach((entry) => {
+					if (entry.isIntersecting) {
+						entry.target.classList.add('is-visible');
+						revealObserver.unobserve(entry.target);
+					}
+				});
+			}, { threshold: 0.08, rootMargin: '0px 0px -32px 0px' });
+			revealEls.forEach((el) => revealObserver.observe(el));
+		}
+
+		sakuraTapTargets.forEach((img) => {
+			img.setAttribute('tabindex', '0');
+			img.setAttribute('role', 'button');
+			img.setAttribute('aria-label', `เอฟเฟกต์ซากุระ: ${img.alt}`);
+			img.addEventListener('click', () => {
+				triggerTapSakura(img);
+			});
+			img.addEventListener('keydown', (e) => {
+				if (e.key !== 'Enter' && e.key !== ' ') return;
+				e.preventDefault();
+				triggerTapSakura(img);
+			});
+		});
+
+		document.querySelectorAll('.media-card img').forEach((img) => {
+			img.setAttribute('tabindex', '0');
+			img.setAttribute('role', 'button');
+			img.setAttribute('aria-label', `เปิดภาพขนาดเต็ม: ${img.alt}`);
+
+			img.addEventListener('click', () => {
+				lightboxImg.src = img.src;
+				lightboxImg.alt = img.alt;
+				lightbox.classList.add('open');
+				document.body.style.overflow = 'hidden';
+			});
+
+			img.addEventListener('keydown', (e) => {
+				if (e.key === 'Enter' || e.key === ' ') {
+					e.preventDefault();
+					lightboxImg.src = img.src;
+					lightboxImg.alt = img.alt;
+					lightbox.classList.add('open');
+					document.body.style.overflow = 'hidden';
+				}
+			});
+		});
+
+		function closeLightbox() {
+			lightbox.classList.remove('open');
+			document.body.style.overflow = '';
+		}
+
+		lightboxClose.addEventListener('click', closeLightbox);
+		lightbox.addEventListener('click', (e) => {
+			if (e.target === lightbox) closeLightbox();
+		});
+		document.addEventListener('keydown', (e) => {
+			if (e.key === 'Escape') closeLightbox();
+		});
+
+		/* --- Dorm logo petal burst --- */
+		const dormLogoBtn = document.getElementById('dorm-logo-btn');
+		if (dormLogoBtn) {
+			dormLogoBtn.addEventListener('click', () => {
+				if (document.querySelector('.petal-burst-overlay')) return;
+
+				const overlay = document.createElement('div');
+				overlay.className = 'petal-burst-overlay';
+
+				const colors = ['#fd96b8', '#ffb3cc', '#ffdde8', '#f0739a', '#ffc2d6', '#ffe0ed', '#ff85ab', '#ffcce0'];
+				// Sakura petal SVG path: wide/notched at top, tapers to rounded base
+				const petalPath = 'M12 5 Q10 1 6 1 C1 2 0 9 1 15 C3 22 8 27 12 28 C16 27 21 22 23 15 C24 9 23 2 18 1 Q14 1 12 5 Z';
+				const svgNS = 'http://www.w3.org/2000/svg';
+				const totalPetals = window.innerWidth < 640 ? 140 : 220;
+
+				for (let i = 0; i < totalPetals; i++) {
+					const p = document.createElement('div');
+					p.className = 'burst-petal';
+					const size  = (10 + Math.random() * 12) | 0;
+					const color = colors[Math.floor(Math.random() * colors.length)];
+					const rot0  = (Math.random() * 360) | 0;
+					const rot1  = rot0 + 360 + ((Math.random() * 220) | 0);
+					const rot2  = rot1 + 130 + ((Math.random() * 180) | 0);
+					p.style.cssText = [
+						`left:${(Math.random() * 116 - 8).toFixed(1)}vw`,
+						`top:${(-4 - Math.random() * 26).toFixed(1)}vh`,
+						`--dur:${(3.2 + Math.random() * 1.6).toFixed(2)}s`,
+						`--delay:${(Math.random() * 1.1).toFixed(2)}s`,
+						`--drift:${((Math.random() - 0.5) * 160).toFixed(1)}px`,
+						`--sway:${((Math.random() - 0.5) * 64).toFixed(1)}px`,
+						`--flutter:${(0.75 + Math.random() * 0.65).toFixed(2)}s`,
+						`--rot0:${rot0}deg`,
+						`--rot1:${rot1}deg`,
+						`--rot2:${rot2}deg`,
+					].join(';');
+
+					const svg = document.createElementNS(svgNS, 'svg');
+					svg.setAttribute('viewBox', '0 0 24 28');
+					svg.setAttribute('width', size + 'px');
+					svg.setAttribute('height', Math.round(size * 28 / 24) + 'px');
+					svg.setAttribute('aria-hidden', 'true');
+					const path = document.createElementNS(svgNS, 'path');
+					path.setAttribute('d', petalPath);
+					path.setAttribute('fill', color);
+					svg.appendChild(path);
+					p.appendChild(svg);
+
+					overlay.appendChild(p);
+				}
+
+				document.body.appendChild(overlay);
+				setTimeout(() => overlay.remove(), 6400);
+			});
+		}
+
+	</script>
+</body>
+</html>
